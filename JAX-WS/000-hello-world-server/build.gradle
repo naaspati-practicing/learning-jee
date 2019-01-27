@@ -1,0 +1,32 @@
+plugins {
+    id 'war'
+}
+
+/*
+ url
+   http://localhost:8080/page/hello?wsdl  
+*/
+
+
+/*
+ create client
+    wsimport -clientjar temp.jar -keep -s gjava -d generated http://localhost:8080/page/hello?wsdl 
+*/
+
+dependencies {
+  providedCompile 'javax:javaee-api:7.0'    
+}
+
+repositories {
+    jcenter()
+}
+
+
+war {
+  archiveName = 'page.war'
+  destinationDir = file(System.env.JETTY_BASE+'/webapps/')
+  exclude('**/*.pug')
+}
+
+defaultTasks 'war'
+

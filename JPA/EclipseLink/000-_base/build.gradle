@@ -1,0 +1,75 @@
+apply plugin: 'war'
+
+repositories {
+    jcenter()
+}
+
+def entitiesBasePackage = 'sam.jpa.entity'
+
+configurations {
+  weave
+}
+
+dependencies {
+  weave 'org.eclipse.persistence:org.eclipse.persistence.jpa:2.6.5'
+}
+
+compileJava {
+  destinationDir file("$buildDir/compiled-classes")
+}
+
+war {
+  archiveName = 'page.war'
+  destinationDir = file(System.env.JETTY_BASE+'/webapps/')
+  exclude('**/*.pug')
+}
+
+dependencies {
+  // providedCompile 'javax:javaee-api:7.0'
+  providedCompile 'javax.servlet:javax.servlet-api:3.1.0'
+  
+  compile 'org.postgresql:postgresql:42.2.5'
+  compile 'org.eclipse.persistence:org.eclipse.persistence.jpa:2.6.5'
+  
+  compile 'log4j:log4j:1.2.17'
+}
+
+// jpa weaving
+
+task copyNonPersistentClasses(type: Copy, dependsOn: compileJava) {
+  from "$buildDir/compiled-classes"
+  into sourceSets.main.output.classesDir
+  exclude '**/' + entitiesBasePackage.replaceAll('\\.','/') + '/**'
+  includeEmptyDirs = false
+}
+task copyPersistentClasses(type: Copy, dependsOn: compileJava) {
+  from "$buildDir/compiled-classes"
+  into "$buildDir/unwoven-persistent-classes"
+  include '**/' + entitiesBasePackage.replaceAll('\\.','/') + '/**'
+  includeEmptyDirs = false
+}
+task weaveJpaEntities(type: JavaExec, dependsOn: [copyPersistentClasses,processResources]) {
+  main = 'org.eclipse.persistence.tools.weaving.jpa.StaticWeave'
+  classpath configurations.weave.incoming.files
+  args '-persistenceinfo'
+  args processResources.destinationDir.absolutePath
+  args '-classpath'
+  args configurations.compile.incoming.files.asPath
+  args '-loglevel'
+  args 'ALL'
+  args copyPersistentClasses.destinationDir.absolutePath
+  args sourceSets.main.output.classesDir.absolutePath
+
+  inputs.files fileTree(copyPersistentClasses.destinationDir),fileTree(processResources.destinationDir).matching({pattern -> pattern.include('**/META-INF/persistence.xml')})
+  outputs.dir sourceSets.main.output.classesDir
+}
+classes.dependsOn copyNonPersistentClasses,weaveJpaEntities
+
+task toast {
+  doLast {
+    println (configurations.compile.incoming.files.asPath)
+  }
+}
+
+
+defaultTasks 'war'

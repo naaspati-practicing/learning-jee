@@ -1,0 +1,35 @@
+persistence(xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance",
+  xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
+  version="2.1")
+  persistence-unit(name='DSTest')
+    exclude-unlisted-classes false
+    properties
+      - 
+       const eclipselink = [
+         ['logging.level', 'FINE'],
+         ['logging.level.sql', 'FINE'],
+         ['logging.timestamp', 'false'],
+         ['logging.session', 'false'],
+         ['logging.thread', 'false'],
+         ['target-database', 'PostgreSQL'],
+         ['weaving', 'static']
+         ]
+      each val in eclipselink
+        property(name='eclipselink.'+val[0], value=val[1])/
+
+      property(name='javax.persistence.schema-generation.database.action', value='drop-and-create')/ 
+
+      - 
+        const jdbc = [
+            ['driver', 'org.postgresql.Driver'],
+            ['url', 'jdbc:postgresql://localhost:5432/postgres'],
+            ['user', 'postgres'],
+            ['password', 'postgres']
+        ] 
+      each val in jdbc
+        property(name='javax.persistence.jdbc.'+val[0], value=val[1])/
+
+        
+      
+    

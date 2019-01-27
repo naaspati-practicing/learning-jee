@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+html(xmlns="http://www.w3.org/1999/xhtml", 
+     xmlns:h="http://xmlns.jcp.org/jsf/html")
+  - 
+     prop_exists_check = true;
+     proxyMaker = (beanName, properties) => new Proxy(
+                                                      {beanName:beanName}, 
+                                                      {  get(target, name) {  // handler
+                                                           if(prop_exists_check && properties && !properties.includes(name))
+                                                             console.error(`WARNING: proprty:"${name}" not found in bean: "${target.beanName}"`);
+                                                           return `#{${target.beanName}.${name}}`;}
+                                                        });
+  - rb = proxyMaker("registrationBean");
+  
+  h:head: title registration
+  h:body
+    h1 Second Page in 'registration' flow
+    h1 in flow ? \#{null ne facesContext.application.flowHandler.currentFlow}
+    h2 Flow id: \#{facesContext.application.flowHandler.currentFlow.id}
+    p You are registered as: 
+    = `${rb.name} ${rb.surname}`
+    h:form(prependId='false')
+      h:commandButton( value="Back (still in flow)", action='registration')/
+      h:commandButton( value="Next (exit flow)", action="taskFlowReturnDone")/
+      

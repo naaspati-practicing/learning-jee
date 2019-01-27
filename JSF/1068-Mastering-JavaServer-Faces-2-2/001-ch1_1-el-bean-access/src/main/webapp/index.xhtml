@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html">
+  <h:head>
+    <title>Player Details</title>
+    <style>
+      .red { color:red;}
+      .blue { color:blue;}
+      body { font-family:Consolas; }
+      .prop {font-weight:bold;}
+    </style>
+    <script>
+      function infoJS(name, surname) { alert(`Name: ${name} Surname: ${surname}`)  } 
+      
+    </script>
+  </h:head>
+  <h:body>
+    <h2>Referencing Bean:</h2>
+    <p>#{playerBean}</p>
+    <ul>
+            <li><span class="prop">honorific</span>: <span class="value">#{playerBean.honorific}</span></li>
+            <li><span class="prop">playerName</span>: <span class="value">#{playerBean.playerName}</span></li>
+            <li><span class="prop">playerSurname</span>: <span class="value">#{playerBean.playerSurname}</span></li>
+      <li> 
+        <ul>
+          <h3>Nested Bean</h3>
+                <li><span class="prop">age</span>: <span class="value">#{playerBean.playerDetails.age}</span></li>
+                <li><span class="prop">birthday</span>: <span class="value">#{playerBean.playerDetails.birthday}</span></li>
+                <li><span class="prop">birthplace</span>: <span class="value">#{playerBean.playerDetails.birthplace}</span></li>
+                <li><span class="prop">residence</span>: <span class="value">#{playerBean.playerDetails.residence}</span></li>
+                <li><span class="prop">height</span>: <span class="value">#{playerBean.playerDetails.height}</span></li>
+                <li><span class="prop">weight</span>: <span class="value">#{playerBean.playerDetails.weight}</span></li>
+          <li>
+            <ul>
+              <h3>More Nested Bean</h3>
+                    <li><span class="prop">turnedpro</span>: <span class="value">#{playerBean.playerDetails.moreDetails.turnedpro}</span></li>
+                    <li><span class="prop">coach</span>: <span class="value">#{playerBean.playerDetails.moreDetails.coach}</span></li>
+                    <li><span class="prop">website</span>: <span class="value">#{playerBean.playerDetails.moreDetails.website}</span></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </h:body>
+</html>

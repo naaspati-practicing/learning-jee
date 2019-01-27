@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+		"-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+		"http://struts.apache.org/dtds/struts-2.5.dtd">
+
+<struts>
+	<constant name="struts.objectFactory.cdi.jndiKey" value="java" />
+
+	<package name="default" extends="struts-default">
+	
+	<action name="">
+	<result type="redirect">index</result>
+	</action>
+
+       <action name="index" class="sam.struts.action.NumberGuess">
+			<result>/index.jsp</result>
+		</action>
+	</package>
+
+</struts>

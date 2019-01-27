@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+html(xmlns="http://www.w3.org/1999/xhtml", 
+     xmlns:h="http://xmlns.jcp.org/jsf/html")
+  h:head
+    title Player Details
+    style.
+        .red { color:red;}
+        .blue { color:blue;}
+        body { font-family:Consolas; font-size:0.9em; }
+        .prop {font-weight:bold;}
+    script.
+        function infoJS(name, surname) { alert(`Name: ${name} Surname: ${surname}`)  } 
+
+  - pmaker = (beanName, handler) => new Proxy({beanName}, handler ? handler : {get(target, name){ return `#{${target.beanName}${name ? '.' : ''}${name}}`;}});
+  - playerBean = pmaker("playerBean")
+  - playerDetails = pmaker("playerBean.playerDetails")
+  - playerMoreDetails = pmaker("playerBean.playerDetails.moreDetails")
+          
+  h:body
+    h2 Referencing Bean:
+     //- calling itself same as #{playerBean}
+    p=playerBean['']
+    ul
+      mixin li2(prop, value)
+        li
+          span.prop= prop
+          | : 
+          span.value= value
+
+      each prop in ['honorific', 'playerName', 'playerSurname']
+        +li2(prop, playerBean[prop])
+        
+      li 
+        ul
+          h3 Nested Bean
+          each prop in ['age','birthday','birthplace','residence','height','weight']
+            +li2(prop, playerDetails[prop])
+          li
+            ul
+              h3 More Nested Bean
+              each prop in ['turnedpro','coach','website']
+                +li2(prop, playerMoreDetails[prop])
+          
+      
+      
+        
+    
+          
+      
+
+
+
+
+    

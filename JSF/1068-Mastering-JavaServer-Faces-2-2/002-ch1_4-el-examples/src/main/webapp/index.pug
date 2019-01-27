@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+html(xmlns="http://www.w3.org/1999/xhtml", 
+     xmlns:h="http://xmlns.jcp.org/jsf/html")
+  - 
+     proxyMaker = (beanName, properties) => new Proxy(
+                                                      {beanName:beanName}, 
+                                                      {  get(target, name) {  // handler
+                                                           if(!properties.includes(name))
+                                                             console.error(`WARNING: proprty:"${name}" not found in bean: "${target.beanName}"`);
+                                                           return `#{${target.beanName}.${name}}`;}
+                                                        });
+  - bean = proxyMaker("bean", []);
+  - hashWrap = s => `#{${s}}`;
+  h:head: title title goes here
+  style.
+      body {
+         font-family:monospace;
+      }
+      h2.title {
+
+      }
+      h3.title {
+
+      }
+      span.expression {
+
+      }
+      span.evaluates {
+
+      }
+      span.evaluatesTag {
+          font-weight:bold;
+          color:blue;
+      }
+  
+  h:body
+    mixin expression(name, evaluatesTag)
+      li
+        if block
+           block
+        - name = hashWrap(name);
+        span.expression!=name.replace('#', "#&zwnj;")
+        span.evaluatesTag
+          if evaluatesTag
+            =  evaluatesTag
+          else
+            |  evaluates to: 
+        span.evaluates!=name
+    
+    h1.title EL 3.0 Expressions Examples
+    mixin expressions(title, expressionsList) 
+      h3.title!=title 
+      ul
+        each val in expressionsList
+          +expression(val)
+        if block
+          block
+
+    +expressions(" A. New Operators: '+' ,'=', ';'",
+          [
+              "x = 3",
+              "y = x + 5",
+              "z = y = x + 4",
+              "0 += 0 +=0 += 1 += 1 += 0 += 0 += 0",
+              "x += y",
+              '"Rafael " += "Nadal " += "Parera"',
+              "x = 5; y = 3; z = x + y"
+          ]
+        )
+    
+    +expressions('B. Lambda Expression Invoked Immediately',
+         [
+             "(x->x+1)(3)",
+             "((x,y)->x+y)(2,7)",
+             "((x,y,z)->x-y*z)(1,7,3)",
+             "((x,y)->x/y)(1,5)"
+         ]
+      )
+    +expressions('C. Assigned Lambda Expression - Referenced and Invoked Indirectly',
+         [
+             "q = x->x+1; q(3)",
+             "q = (x,y)->x+y; q(2,7)",
+             "q = ((x,y,z)->x-y*z); q(1,7,3)",
+             "q = ((x,y)->x/y); q(1,5)"
+         ]
+      )
+        +expression("facto = n -> n == 0 ? 1 : n*facto(n-1); facto(5)")
+          p Factorial #[i n] recursive function: 
+        +expression("modulus = (n,m) -> m eq 0 ? 0 : (n lt m ? n: (modulus(n-m, m))); modulus(13,5)")
+          p Compute #[i n mod m] without using #[i %]:
+        +expression("gcd = (n,m) -> modulus(n,m) == 0 ? m: (gcd(m, modulus(n,m))); gcd(10, 15)")
+          p Greatest common divisor of 2 numbers (uses the above #[i modulus] function):
+
+    +expressions('D. Lambda Expression Passed as an Argument to a Method', [])
+        +expression('lambdaBean.firstLambdaAction(modulus = (n,m) -> m eq 0 ? 0 : (n lt m ? n: (modulus(n-m, m))))')
+          p Call bean method named #[i firstLambdaAction] with lambda expression as argument:
+        +expression("lambdaBean.secondLambdaAction(modulus = (n,m) -> m eq 0 ? 0 : (n lt m ? n: (modulus(n-m, m))))")
+          p Call bean method named #[i secondLambdaAction] with lambda expression as argument:
+    +expressions('E. Nested Lambda Expressions',
+        [
+            "(x->x-((x,y)->(x+y))(4,3))(10)",
+
+        ]
+      )
+        +expression("lambdaBean.thirdLambdaAction((x->x-((x,y)->(x+y))(4,3)))")
+          p Call bean method named #[i thirdLambdaAction] with nested lambda expression as argument:
+    
+    +expressions('F. Lambda Streams - using Collections', [])
+      li
+        h4 Sort ascending/descending a list:
+      +expression('[21,23,12,444,9,1,45].stream().sorted((i,j)->i-j).toList()', ' ascending to ')
+      +expression('[21,23,12,444,9,1,45].stream().sorted((i,j)->j-i).toList()', ' descending to ')
+      li
+        h4 create list/set/map
+      +expression("nr_set = {1,2,2,3,4,5,5,6,7,8,9,10,10};''")
+        p Create an instance of #[i java.lang.util.Set&lt;Object&gt;] without displaying it:
+      +expression("nr_set")
+        p display nr_set
+      +expression("nr_list = [1,2,2,3,4,5,5,6,7,8,9,10,10];''")
+        p Create an instance of #[i java.lang.util.List&lt;Object&gt;] without displaying it:
+      +expression("nr_list")
+        p display nr_list
+      +expression('nr_map = {"one":1,"two":2,"three":3,"four":4,"five":5,"six":6,"seven":7,"eight":8,"nine":9,"ten":10};\'\'')
+        p Create an instance of #[i java.lang.util.Map&lt;Object, Object&gt;] without displaying it:
+      +expression("nr_map")
+        p display nr_map
+      
+      mixin filter(variable, filter, filterDesp)
+        +expression(`${variable}.stream().filter(${filter}).toList()`)
+          p!= filterDesp
+      +filter("nr_set", "x -> x%2 == 0", "show even number in <i>nr_set</i>")
+      +filter("nr_list", "x -> x%5 == 0", "show number divisible by 5 in <i>nr_list</i>")
+

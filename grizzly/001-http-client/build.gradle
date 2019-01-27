@@ -1,0 +1,16 @@
+apply plugin: 'java'
+apply plugin: 'application'
+
+repositories {
+    jcenter()
+}
+
+mainClassName = 'Main'
+
+dependencies {
+  implementation 'org.glassfish.grizzly:grizzly-http:2.3.+';
+    }
+
+run {
+  standardInput = System.in
+}

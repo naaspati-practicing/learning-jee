@@ -1,0 +1,44 @@
+apply plugin: 'war' // optional if you use spring-boot
+// apply from: 'https://raw.github.com/akhikhl/gretty/master/pluginScripts/gretty.plugin'
+
+
+
+repositories {
+    jcenter()
+}
+
+ext.hibernateVersion = '5.2.17.Final'
+
+/**
+// see:: http://docs.jboss.org/hibernate/orm/current/userguide/html_single/Hibernate_User_Guide.html#BytecodeEnhancement-enhancement-gradle
+buildscript {
+    dependencies {
+        classpath "org.hibernate:hibernate-gradle-plugin:$hibernateVersion"
+    }
+}
+*/
+
+war {
+  archiveName = 'page.war'
+  destinationDir = file(System.env.JETTY_BASE+'/webapps/')
+  exclude('**/*.pug')
+}
+
+dependencies {
+  providedCompile 'javax:javaee-api:7.0'
+  compile 'org.postgresql:postgresql:42.2.5'
+  compile 'org.hibernate:hibernate-core:'+hibernateVersion
+}
+
+
+// directory creation
+task createDirs(description: 'Creates the directory for the project.', group: 'Project')  {
+	doLast {
+	  sourceSets*.java.srcDirs*.each { it.mkdirs() }
+	  // sourceSets*.groovy.srcDirs*.each { it.mkdirs() }
+  	  sourceSets*.resources.srcDirs*.each { it.mkdirs() }
+
+	  [webAppDirName, webAppDirName + '/META-INF', webAppDirName + '/WEB-INF'].each { file(it).mkdirs() }
+	}
+}
+

@@ -1,0 +1,36 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="s" uri="/struts-tags" %>
+<!DOCTYPE html>
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        meta(http-equiv="X-UA-Compatible", content="ie=edge")
+        title Struts 2 CRUD Example - Welcome
+    body
+      div.titleDiv: s:text(name='application.title')/
+      h1: s:text(name='label.persons')/
+      s:url(var='url', action='inputPerson')/
+      a(href="${url}") Add new Person
+      br
+      br
+      table.borderAll
+        tr
+          each val in ["firstName", "lastName", "email", "phoneNumber", "sport", "gender", "country", "over21", "carModels"]
+            th: s:text(name="person."+val)/
+        s:iterator(value='persons', status='status')
+          tr(class!="<s:if test='#status.even'>even</s:if><s:else>odd</s:else>")
+            each val in ["firstName", "lastName", "email", "phoneNumber", "sport", "gender", "country.countryName"]
+              td.nowrap: s:property(value=val)/
+            td.nowrap
+              s:if(test='over21'): span(style={color:"green", "font-size": "large"}) &#x2714;
+              s:else:  span(style={color:"red", "font-size": "large"}) &#x2717;
+            td.nowrap: s:property(value="carModels")/
+            td.nowrap
+              mixin url(action, buttonName)
+                s:url(action=action+"Person", var='url'): s:param(name='person.personId', value='personId')/
+                a(href="${url}")=buttonName
+
+              +url("input", "Edit")  
+              | &nbsp;&nbsp;&nbsp;
+              +url("delete", 'Delete')  

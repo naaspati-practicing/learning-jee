@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html">
+  <h:head>
+    <title>title goes here</title>
+  </h:head>
+  <h:body>
+    <h1>Session Scope (CDI) </h1>
+    <p>Just Generated</p>
+    <h:outputText value="#{playersBean.player}"/><br/>
+    <h3>List of generated players:</h3>
+    <h:dataTable var="t" value="#{playersBean.players}">
+      <h:column>
+        <h:outputText value="#{t}"/>
+      </h:column>
+    </h:dataTable>
+    <h:form>
+      <h:commandButton value="Get Players In Same View" actionListener="#{playersBean.newPlayer()}"/>
+      <h:commandButton value="Get Players With Page Forward" actionListener="#{playersBean.newPlayer()}" action="index.xhtml"/>
+      <h:commandButton value="Get Players With Page Redirect" actionListener="#{playersBean.newPlayer()}" action="index.xhtml?faces-redirct=true;"/>
+    </h:form>
+  </h:body>
+</html>

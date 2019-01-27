@@ -1,0 +1,18 @@
+plugins {
+    id 'war'
+}
+
+dependencies {
+  providedCompile 'javax:javaee-api:7.0'
+  providedCompile 'org.slf4j:slf4j-api:1.7.25'
+}
+
+repositories {
+    jcenter()
+}
+
+war {
+  archiveName = 'page.war'
+  destinationDir = file(System.env.JETTY_BASE+'/webapps/')
+  exclude('**/*.pug')
+}

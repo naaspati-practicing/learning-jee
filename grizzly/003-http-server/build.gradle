@@ -1,0 +1,17 @@
+apply plugin: 'java'
+apply plugin: 'application'
+
+repositories {
+    jcenter()
+}
+
+mainClassName = 'Main'
+
+dependencies {
+  compile 'com.j2html:j2html:1.2.2'
+  implementation 'org.glassfish.grizzly:grizzly-http-server:2.4.+';
+    }
+
+run {
+  standardInput = System.in
+}

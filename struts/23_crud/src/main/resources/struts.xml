@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+		"-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+		"http://struts.apache.org/dtds/struts-2.5.dtd">
+
+<struts>
+	<constant name="struts.mapper.action.prefix.enabled" value="true" />
+	<constant name="struts.enable.DynamicMethodInvocation" value="false" />
+
+	<package name="default" extends="struts-default">
+
+		<interceptors>
+			<interceptor-stack name="appDefault">
+				<interceptor-ref name="defaultStack">
+					<param name="exception.logEnabled">true</param>
+					<param name="exception.logLevel">ERROR</param>
+					<param name="params.excludeParams">dojo\..*,^struts\..*,^session\..*,^request\..*,^application\..*,^servlet(Request|Response)\..*,parameters\...*</param>
+				</interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
+
+		<default-interceptor-ref name="appDefault" />
+
+		<action name="">
+			<result type="redirect">index</result>
+		</action>
+
+		<action name="index">
+			<result>/index.jsp</result>
+			<interceptor-ref name="basicStack"/>
+		</action>
+		
+		<action name="persons" class="sam.struts.crud.action.PersonAction" method="list">
+			<result>/persons.jsp</result>
+			<interceptor-ref name="basicStack"/>
+		</action>
+		
+		<action name="*Person" class="sam.struts.crud.action.PersonAction" method="{1}">
+		    <result name="input">edit_person.jsp</result>
+			<result name="success" type="redirectAction">index</result>
+		</action>
+
+	</package>
+</struts>

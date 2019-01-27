@@ -1,0 +1,43 @@
+plugins {
+    id 'war'
+}
+
+/*
+ url
+   http://localhost:8080/page/hello?wsdl  
+*/
+
+/*
+000-hello-world-server-web-service.jar
+is created by 
+  wsimport -clientjar 000-hello-world-server-web-service.jar -keep -s gjava -d generated http://localhost:8080/page/hello?wsdl
+
+*/
+
+/*
+access
+
+http://localhost:8080/page-client/HelloServlet
+http://localhost:8080/page-client/HelloServlet?name=sonu
+
+*/
+
+dependencies {
+  providedCompile 'javax:javaee-api:7.0'
+  compile 'com.j2html:j2html:+'
+  compile files('000-hello-world-server-web-service.jar')    
+}
+
+repositories {
+    jcenter()
+}
+
+
+war {
+  archiveName = 'page-client.war'
+  destinationDir = file(System.env.JETTY_BASE+'/webapps/')
+  exclude('**/*.pug')
+}
+
+defaultTasks 'war'
+

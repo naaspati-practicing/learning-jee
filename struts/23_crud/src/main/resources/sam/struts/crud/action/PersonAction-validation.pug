@@ -1,0 +1,21 @@
+<!DOCTYPE validators PUBLIC "-//Apache Struts//XWork Validator 1.0.3//EN" "http://struts.apache.org/dtds/xwork-validator-1.0.3.dtd">
+validators
+    - split = text => Array.from(text).map((s, i) => i == 0 ? s.toUpperCase() : s == s.toUpperCase() ? ' '+s : s).join("");
+    - param2 = (name,value) => `\n<param name="${name}">${value}</param>`
+    - param = (name,value) => param2(name, "person."+value)
+    mixin vali(type, value, message)
+      validator(type=type)
+        !=param("fieldname", value)
+        message=message
+    mixin vali2(type, value, name, value2,  message)
+      validator(type=type)
+        !=param("fieldname", value)
+        !=param2(name, value2)
+        message=message
+
+    each val in ["firstName", "lastName", "email", "phoneNumber"]
+      +vali('requiredstring', val, split(val)+" is required.")
+    
+    +vali("email", "email", "Invalid email address")
+    +vali2("regex", "phoneNumber","expression", "<![CDATA[\\d{3}-\\d{3}-\\d{4}]]>", "Phone number must be entered as 999-999-9999.")
+    +vali2("fieldexpression", "carModels", "expression", "<![CDATA[person.carModels.length > 0]]>", "You must select at least one car model.")

@@ -1,0 +1,35 @@
+persistence(xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance",
+  xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
+  version="2.1")
+  persistence-unit(name='DSTest')
+    
+    exclude-unlisted-classes false
+    properties
+      - 
+       const hibernate = [
+         ['format_sql', 'true'],
+        //- ['show_sql', 'true'],
+         ['use_sql_comments', 'true'],
+         ['dialect', 'org.hibernate.dialect.PostgreSQLDialect'],
+         ['hbm2ddl.auto', 'update'],
+         ['default_schema', 'hibernate']
+         ]
+      each val in hibernate
+        property(name='hibernate.'+val[0], value=val[1])/
+
+      property(name='javax.persistence.schema-generation.database.action', value='drop-and-create')/
+
+      - 
+        const jdbc = [
+            ['driver', 'org.postgresql.Driver'],
+            ['url', 'jdbc:postgresql://localhost:5432/postgres'],
+            ['user', 'postgres'],
+            ['password', 'postgres']
+        ] 
+      each val in jdbc
+        property(name='javax.persistence.jdbc.'+val[0], value=val[1])/
+
+        
+      
+    

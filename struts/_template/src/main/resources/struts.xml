@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+		"-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+		"http://struts.apache.org/dtds/struts-2.5.dtd">
+
+<struts>
+    <constant name="struts.devMode" value="true"/>
+	<constant name="struts.enable.DynamicMethodInvocation" value="false" />
+
+	<package name="default" extends="struts-default">
+		<action name="">
+			<result type="redirect">index</result>
+		</action>
+
+		<action name="index">
+			<result type="redirectAction">upload</result>
+		</action>
+		
+		<action name="upload" class="sam.struts.action.UploadAction">
+		    <result name="input">/upload.jsp</result>
+		</action>
+
+	</package>
+</struts>

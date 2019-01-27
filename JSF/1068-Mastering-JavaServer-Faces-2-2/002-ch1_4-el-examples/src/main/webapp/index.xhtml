@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html">
+  <h:head>
+    <title>title goes here</title>
+  </h:head>
+  <style>
+    body {
+       font-family:monospace;
+    }
+    h2.title {
+    
+    }
+    h3.title {
+    
+    }
+    span.expression {
+    
+    }
+    span.evaluates {
+    
+    }
+    span.evaluatesTag {
+        font-weight:bold;
+        color:blue;
+    }
+    
+  </style>
+  <h:body>
+    <h1 class="title">EL 3.0 Expressions Examples</h1>
+        <h3 class="title"> A. New Operators: '+' ,'=', ';'</h3>
+        <ul>
+              <li><span class="expression">#&zwnj;{x = 3}</span><span class="evaluatesTag"> evaluates to: </span><span class="evaluates">#{x = 3}</span>
+              </li>
+              <li><span class="expression">#&zwnj;{y = x + 5}</span><span class="evaluatesTag"> evaluates to: </span><span class="evaluates">#{y = x + 5}</span>
+              </li>
+              <li><span class="expression">#&zwnj;{z = y = x + 4}</span><span class="evaluatesTag"> evaluates to: </span><span class="evaluates">#{z = y = x + 4}</span>
+              </li>
+              <li><span class="expression">#&zwnj;{0 += 0 +=0 += 1 += 1 += 0 += 0 += 0}</span><span class="evaluatesTag"> evaluates to: </span><span class="evaluates">#{0 += 0 +=0 += 1 += 1 += 0 += 0 += 0}</span>
+              </li>
+              <li><span class="expression">#&zwnj;{x += y}</span><span class="evaluatesTag"> evaluates to: </span><span class="evaluates">#{x += y}</span>
+              </li>
+              <li><span class="expression">#&zwnj;{"Rafael " += "Nadal " += "Parera"}</span><span class="evaluatesTag"> evaluates to: </span><span class="evaluates">#{"Rafael " += "Nadal " += "Parera"}</span>
+              </li>
+              <li><span class="expression">#&zwnj;{x = 5; y = 3; z = x + y}</span><span class="evaluatesTag"> evaluates to: </span><span class="evaluates">#{x = 5; y = 3; z = x + y}</span>
+              </li>
+        </ul>
+        <h3 class="title">B. Lambda Expression Invoked Immediately</h3>
+        <ul>
+              <li><span class="expression">#&zwnj;{(x->x+1)(3)}</span><span class="evaluatesTag"> evaluates to: </span><span class="evaluates">#{(x->x+1)(3)}</span>
+              </li>
+              <li><span class="expression">#&zwnj;{((x,y)->x+y)(2,7)}</span><span class="evaluatesTag"> evaluates to: </span><span class="evaluates">#{((x,y)->x+y)(2,7)}</span>
+              </li>
+              <li><span class="expression">#&zwnj;{((x,y,z)->x-y*z)(1,7,3)}</span><span class="evaluatesTag"> evaluates to: </span><span class="evaluates">#{((x,y,z)->x-y*z)(1,7,3)}</span>
+              </li>
+              <li><span class="expression">#&zwnj;{((x,y)->x/y)(1,5)}</span><span class="evaluatesTag"> evaluates to: </span><span class="evaluates">#{((x,y)->x/y)(1,5)}</span>
+              </li>
+        </ul>
+        <h3 class="title">C. Assigned Lambda Expression - Referenced and Invoked Indirectly</h3>
+        <ul>
+              <li><span class="expression">#&zwnj;{q = x->x+1; q(3)}</span><span class="evaluatesTag"> evaluates to: </span><span class="evaluates">#{q = x->x+1; q(3)}</span>
+              </li>
+              <li><span class="expression">#&zwnj;{q = (x,y)->x+y; q(2,7)}</span><span class="evaluatesTag"> evaluates to: </span><span class="evaluates">#{q = (x,y)->x+y; q(2,7)}</span>
+              </li>
+              <li><span class="expression">#&zwnj;{q = ((x,y,z)->x-y*z); q(1,7,3)}</span><span class="evaluatesTag"> evaluates to: </span><span class="evaluates">#{q = ((x,y,z)->x-y*z); q(1,7,3)}</span>
+              </li>
+              <li><span class="expression">#&zwnj;{q = ((x,y)->x/y); q(1,5)}</span><span class="evaluatesTag"> evaluates to: </span><span class="evaluates">#{q = ((x,y)->x/y); q(1,5)}</span>
+              </li>
+              <li>
+                <p>Factorial <i>n</i> recursive function: </p><span class="expression">#&zwnj;{facto = n -> n == 0 ? 1 : n*facto(n-1); facto(5)}</span><span class="evaluatesTag"> evaluates to: </span><span class="evaluates">#{facto = n -> n == 0 ? 1 : n*facto(n-1); facto(5)}</span>
+              </li>
+              <li>
+                <p>Compute <i>n mod m</i> without using <i>%</i>:</p><span class="expression">#&zwnj;{modulus = (n,m) -> m eq 0 ? 0 : (n lt m ? n: (modulus(n-m, m))); modulus(13,5)}</span><span class="evaluatesTag"> evaluates to: </span><span class="evaluates">#{modulus = (n,m) -> m eq 0 ? 0 : (n lt m ? n: (modulus(n-m, m))); modulus(13,5)}</span>
+              </li>
+              <li>
+                <p>Greatest common divisor of 2 numbers (uses the above <i>modulus</i> function):</p><span class="expression">#&zwnj;{gcd = (n,m) -> modulus(n,m) == 0 ? m: (gcd(m, modulus(n,m))); gcd(10, 15)}</span><span class="evaluatesTag"> evaluates to: </span><span class="evaluates">#{gcd = (n,m) -> modulus(n,m) == 0 ? m: (gcd(m, modulus(n,m))); gcd(10, 15)}</span>
+              </li>
+        </ul>
+        <h3 class="title">D. Lambda Expression Passed as an Argument to a Method</h3>
+        <ul>
+              <li>
+                <p>Call bean method named <i>firstLambdaAction</i> with lambda expression as argument:</p><span class="expression">#&zwnj;{lambdaBean.firstLambdaAction(modulus = (n,m) -> m eq 0 ? 0 : (n lt m ? n: (modulus(n-m, m))))}</span><span class="evaluatesTag"> evaluates to: </span><span class="evaluates">#{lambdaBean.firstLambdaAction(modulus = (n,m) -> m eq 0 ? 0 : (n lt m ? n: (modulus(n-m, m))))}</span>
+              </li>
+              <li>
+                <p>Call bean method named <i>secondLambdaAction</i> with lambda expression as argument:</p><span class="expression">#&zwnj;{lambdaBean.secondLambdaAction(modulus = (n,m) -> m eq 0 ? 0 : (n lt m ? n: (modulus(n-m, m))))}</span><span class="evaluatesTag"> evaluates to: </span><span class="evaluates">#{lambdaBean.secondLambdaAction(modulus = (n,m) -> m eq 0 ? 0 : (n lt m ? n: (modulus(n-m, m))))}</span>
+              </li>
+        </ul>
+        <h3 class="title">E. Nested Lambda Expressions</h3>
+        <ul>
+              <li><span class="expression">#&zwnj;{(x->x-((x,y)->(x+y))(4,3))(10)}</span><span class="evaluatesTag"> evaluates to: </span><span class="evaluates">#{(x->x-((x,y)->(x+y))(4,3))(10)}</span>
+              </li>
+              <li>
+                <p>Call bean method named <i>thirdLambdaAction</i> with nested lambda expression as argument:</p><span class="expression">#&zwnj;{lambdaBean.thirdLambdaAction((x->x-((x,y)->(x+y))(4,3)))}</span><span class="evaluatesTag"> evaluates to: </span><span class="evaluates">#{lambdaBean.thirdLambdaAction((x->x-((x,y)->(x+y))(4,3)))}</span>
+              </li>
+        </ul>
+        <h3 class="title">F. Lambda Streams - using Collections</h3>
+        <ul>
+          <li>
+            <h4>Sort ascending/descending a list:</h4>
+          </li>
+              <li><span class="expression">#&zwnj;{[21,23,12,444,9,1,45].stream().sorted((i,j)->i-j).toList()}</span><span class="evaluatesTag"> ascending to </span><span class="evaluates">#{[21,23,12,444,9,1,45].stream().sorted((i,j)->i-j).toList()}</span>
+              </li>
+              <li><span class="expression">#&zwnj;{[21,23,12,444,9,1,45].stream().sorted((i,j)->j-i).toList()}</span><span class="evaluatesTag"> descending to </span><span class="evaluates">#{[21,23,12,444,9,1,45].stream().sorted((i,j)->j-i).toList()}</span>
+              </li>
+          <li>
+            <h4>create list/set/map</h4>
+          </li>
+              <li>
+                <p>Create an instance of <i>java.lang.util.Set&lt;Object&gt;</i> without displaying it:</p><span class="expression">#&zwnj;{nr_set = {1,2,2,3,4,5,5,6,7,8,9,10,10};''}</span><span class="evaluatesTag"> evaluates to: </span><span class="evaluates">#{nr_set = {1,2,2,3,4,5,5,6,7,8,9,10,10};''}</span>
+              </li>
+              <li>
+                <p>display nr_set</p><span class="expression">#&zwnj;{nr_set}</span><span class="evaluatesTag"> evaluates to: </span><span class="evaluates">#{nr_set}</span>
+              </li>
+              <li>
+                <p>Create an instance of <i>java.lang.util.List&lt;Object&gt;</i> without displaying it:</p><span class="expression">#&zwnj;{nr_list = [1,2,2,3,4,5,5,6,7,8,9,10,10];''}</span><span class="evaluatesTag"> evaluates to: </span><span class="evaluates">#{nr_list = [1,2,2,3,4,5,5,6,7,8,9,10,10];''}</span>
+              </li>
+              <li>
+                <p>display nr_list</p><span class="expression">#&zwnj;{nr_list}</span><span class="evaluatesTag"> evaluates to: </span><span class="evaluates">#{nr_list}</span>
+              </li>
+              <li>
+                <p>Create an instance of <i>java.lang.util.Map&lt;Object, Object&gt;</i> without displaying it:</p><span class="expression">#&zwnj;{nr_map = {"one":1,"two":2,"three":3,"four":4,"five":5,"six":6,"seven":7,"eight":8,"nine":9,"ten":10};''}</span><span class="evaluatesTag"> evaluates to: </span><span class="evaluates">#{nr_map = {"one":1,"two":2,"three":3,"four":4,"five":5,"six":6,"seven":7,"eight":8,"nine":9,"ten":10};''}</span>
+              </li>
+              <li>
+                <p>display nr_map</p><span class="expression">#&zwnj;{nr_map}</span><span class="evaluatesTag"> evaluates to: </span><span class="evaluates">#{nr_map}</span>
+              </li>
+              <li>
+                <p>show even number in <i>nr_set</i></p><span class="expression">#&zwnj;{nr_set.stream().filter(x -> x%2 == 0).toList()}</span><span class="evaluatesTag"> evaluates to: </span><span class="evaluates">#{nr_set.stream().filter(x -> x%2 == 0).toList()}</span>
+              </li>
+              <li>
+                <p>show number divisible by 5 in <i>nr_list</i></p><span class="expression">#&zwnj;{nr_list.stream().filter(x -> x%5 == 0).toList()}</span><span class="evaluatesTag"> evaluates to: </span><span class="evaluates">#{nr_list.stream().filter(x -> x%5 == 0).toList()}</span>
+              </li>
+        </ul>
+  </h:body>
+</html>

@@ -1,0 +1,25 @@
+apply plugin: 'java'
+apply plugin: 'war'
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+  compile 'org.apache.struts:struts2-core:2.5.16'
+  compile 'org.apache.logging.log4j:log4j-core:2.10.0'
+  compile 'org.apache.struts:struts2-bean-validation-plugin:2.5.16'
+  compile 'org.hibernate.validator:hibernate-validator:6.0.11.Final'
+  
+  // for jsp errors  
+  providedCompile 'javax.servlet:javax.servlet-api:3.1.0'
+}
+
+war {
+  archiveName = 'page.war'
+  destinationDir = file(System.env.JETTY_BASE+'/webapps/')
+}
+
+
+
+
