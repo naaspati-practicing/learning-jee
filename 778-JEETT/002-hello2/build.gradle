@@ -1,0 +1,10 @@
+apply plugin: 'java'
+apply plugin: 'war'
+apply from: '../build.gradle'
+
+description = 'javaee8-tutorial-examples/web/servlet/hello2'
+
+dependencies  {
+  implementation 'com.j2html:j2html:+'
+}
+
