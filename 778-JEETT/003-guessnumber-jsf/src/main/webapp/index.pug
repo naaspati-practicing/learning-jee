@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+html(xmlns="http://www.w3.org/1999/xhtml", 
+     xmlns:h="http://xmlns.jcp.org/jsf/html",
+     xmlns:f="http://xmlns.jcp.org/jsf/core")
+
+  - proxyMaker = (beanName, properties) => new Proxy({beanName:beanName},  {  get(target, name) {  /* handler */ if((typeof properties === 'object') && !properties.includes(name)) { console.error(`WARNING: proprty:"${name}" not found in bean: "${target.beanName}"`); } return name ? `#{${target.beanName}.${name}}` :`#{${target.beanName}}` ;} });
+  - bean = proxyMaker("userNumberBean");
+  
+  h:head
+    title Guess Number Facelets Application
+    h:outputStylesheet(library="css" name="styles.css")/
+  h:body
+    h:form
+      h:graphicImage(value="#{resource['images:duke.waving.gif']}" alt="Duke waving his hand")/
+      h2 
+        | Hi, my name is Duke. I am thinking of a number from 
+        = bean.max
+        |  to 
+        = bean.min
+        | . Can you guess it?
+      p 
+        h:inputText#userInput(title=`Enter a from ${bean.min} to ${bean.max}:`, value=bean.userInput)
+          f:validateLongRange(minimum=bean.min, maximum=bean.max)
+        h:commandButton#submit( value="Submit", action="response")/
+      h:message(showSummary="true" showDetail="false"
+                       style=`color: #d20005;
+                       font-family: 'New Century Schoolbook', serif;
+                       font-style: oblique;
+                       text-decoration: overline`
+                       id="errors1"
+                       for="userInput")/

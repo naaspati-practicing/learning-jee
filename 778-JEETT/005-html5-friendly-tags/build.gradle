@@ -1,0 +1,13 @@
+apply plugin: 'java'
+apply plugin: 'war'
+apply from: '../build.gradle'
+
+
+description = '''
+_unzipped/JAVA/JAVA_EE/778-JEETT/javaee8-tutorial-examples/web/jsf/reservation
+
+example for 
+  pass-through attributes and 
+  pass-through elements.
+
+'''

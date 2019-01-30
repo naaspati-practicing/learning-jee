@@ -31,34 +31,37 @@ public class GreetingServlet extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String username = req.getParameter(USERNAME);
+		if(username == null || username.isEmpty()) {
+			writeIndex(resp);
+		} else {
+			RequestDispatcher rd = getServletContext().getRequestDispatcher(ResponseServlet.PATH);
+			rd.include(req, resp);
+		}
+	}
+
+	private void writeIndex(HttpServletResponse resp) throws IOException {
 		try(PrintWriter pw = resp.getWriter()) {
 			ContainerTag html = html()
-			.withLang("en")
-			.with(head(title("Servlet Hello") ))
-			.with(body()
-					.attr("bgcolor", "white")
-					.with(
-							img().withSrc("resources/images/duke.waving.gif").withAlt("Duke waving his hand"),
-							form().withMethod("get")
+					.withLang("en")
+					.with(head(title("Servlet Hello") ))
+					.with(body()
+							.attr("bgcolor", "white")
 							.with(
-									h2("Hello, my name is Duke. What's yours?"),
-									input().withTitle("My name is: ").withType("text").withName(USERNAME).attr("size", 25),
-									p(),
-									input().withType("submit").withValue("Submit").withAction(""),
-									input().withType("reset").withValue("Reset")
+									img().withSrc("resources/images/duke.waving.gif").withAlt("Duke waving his hand"),
+									form().withMethod("get")
+									.with(
+											h2("Hello, my name is Duke. What's yours?"),
+											input().withTitle("My name is: ").withType("text").withName(USERNAME).attr("size", 25),
+											p(),
+											input().withType("submit").withValue("Submit").withAction(""),
+											input().withType("reset").withValue("Reset")
+											)
 									)
-							)
-					);
+							);
 
-			String username = req.getParameter(USERNAME);
-			if(!(username == null || username.isEmpty())) {
-				RequestDispatcher rd = getServletContext().getRequestDispatcher(ResponseServlet.PATH);
-				if(rd != null)
-					rd.include(req, resp);
-			}
+
 			html.render(pw);
 		}
-		
-		
 	}
 }

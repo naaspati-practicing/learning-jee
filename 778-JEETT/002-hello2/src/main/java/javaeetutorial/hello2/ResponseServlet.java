@@ -20,7 +20,7 @@ public class ResponseServlet extends HttpServlet {
 		try(PrintWriter pw = resp.getWriter()) {
 			String username = req.getParameter(GreetingServlet.USERNAME);
 			if(!(username == null || username.isEmpty()))
-				h2("Hello "+username+"!").render(pw);
+				html(head(title("response")), body(h2("Hello "+username+"!"))).render(pw);
 		}
 	}
 

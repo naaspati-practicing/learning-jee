@@ -2,7 +2,4 @@ apply plugin: 'java'
 apply plugin: 'war'
 apply from: '../build.gradle'
 
-dependencies  {
-  implementation 'com.j2html:j2html:+'
-}
-
+description = 'Resource Library Contracts example'

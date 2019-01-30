@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+html(xmlns="http://www.w3.org/1999/xhtml", 
+     xmlns:h="http://xmlns.jcp.org/jsf/html",
+     xmlns:f="http://xmlns.jcp.org/jsf/core",
+     xmlns:pass="http://xmlns.jcp.org/jsf/passthrough",
+     xmlns:jsf="http://xmlns.jcp.org/jsf")
+
+  - proxyMaker = (beanName, properties) => new Proxy({beanName:beanName},  {  get(target, name) {  /* handler */ if((typeof properties === 'object') && !properties.includes(name)) { console.error(`WARNING: proprty:"${name}" not found in bean: "${target.beanName}"`); } return name ? `#{${target.beanName}.${name}}` :`#{${target.beanName}}` ;} });
+  - bean = proxyMaker("reservationBean");
+  
+  h:head
+  h:body
+    h:outputStylesheet(name="css/styles.css", target='head')/
+    h:form(prependId="false")
+      h2 Ticket Reservation Form
+      p 
+        | Welcome to the reservation form for 
+        i Hit Broadway Musical
+        | !
+      mixin view(title)
+        p
+          label=title
+          br/
+          block
+          
+      +view('Name (First Last):')
+       input(jsf:id='full_name' type="text", name="full_name", placeholder="John Doe", value=bean.name, required, title='Enter your name: ')/
+      +view('Email:')
+       input(jsf:id='email' type="email", name="email", value=bean.email, required, title='Enter your email: ')/
+      +view('Enter email Again:')
+        input(jsf:id='email_again' type="email", name="email_again", value=bean.emailAgain, required, title='Enter your email again: ', oninput='check(this)')/
+      +view('Performance date:')
+        input(jsf:id='date' type="date", name="date", value=bean.date, required, title='Enter or choose a date.')/
+      +view('Number of tickets:')
+        h:inputText#tickets( value=bean.tickets)
+          f:passThroughAttributes(value=bean.ticketsAttrs)/
+          f:ajax(event='change', render='total', listener=bean.calculateTotal)/
+      +view("Ticket Price")
+        h:inputText#price( value=bean.price,
+                           pass:type='number', pass:required="required",
+                           pass:min=80, pass:max=120, pass:step=20,
+                           pass:title='Enter a price: 80, 100, 120, or 140.'
+                           )
+            f:ajax(event='change', render='total', listener=bean.calculateTotal)/
+      +view('Estimated Total:')
+        output(jsf:id='total', name='total')=bean.totalValue
+      p
+        h:commandButton( value='Make Reservation', action="confirmation")/
+        //- this does not work since, input is a  self close tag
+        //- input(jsf:id='clear', name='clear', value='clear', type='submit')
+        h:commandButton#clear(value="clear", pass:type='submit')
+          f:ajax(render='@all', listener=bean.clear)/
+    
+    script.
+        function check(input) {
+            if(input.value !== document.getElementById('email').value )
+              input.setCustomValidity('The two email addresses must match.');
+            else
+              input.setCustomValidity(''); // input is valid -- reset the error message
+        }
+    
+
+      
+      
+      
+       
+      
+      
+    
