@@ -1,0 +1,13 @@
+apply plugin: 'java'
+apply plugin: 'war'
+apply from: '../build.gradle'
+
+description = '''
+tut-install /examples/web/servlet/fileupload/
+
+illustrates how to implement and use the file upload feature.
+
+consists of a single servlet and an HTML form
+that makes a file upload request to the servlet. 
+
+ '''
