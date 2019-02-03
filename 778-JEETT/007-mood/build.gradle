@@ -1,0 +1,20 @@
+apply plugin: 'java'
+apply plugin: 'war'
+apply from: '../build.gradle'
+
+dependencies  {
+  implementation 'com.j2html:j2html:+'
+}
+
+description = '''
+tut-install /examples/web/servlet/mood/
+
+displays Duke\'s moods at different times during the day.
+
+The example shows how to develop a simple application by using the
+  @WebServlet  (mood.web.MoodServle), 
+  @WebFilter   (mood.web.TimeOfDayFilter), and 
+  @WebListener (mood.web.SimpleServletListener)
+annotations to create a servlet, a listener, and a filter. 
+  
+'''
