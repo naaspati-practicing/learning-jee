@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <title>Duke's HTTP ETF</title>
+    <link rel="stylesheet" href="resources/css/styles.css"/>
+  </head>
+  <body onload="makeAjaxRequest();">
+    <h1>Duke's HTTP ETF</h1>
+    <table>
+      <tr>
+        <td width="100px">Ticker</td>
+        <td align="center">Price</td>
+        <td id="price" style="font-size:24pt;font-weight:bold;">--.--</td>
+      </tr>
+      <tr> 
+        <td style="font-size:18pt;font-weight:bold;" width="100px">DKEJ</td>
+        <td align="center">Volume</td>
+        <td id="volume" align="right">--</td>
+      </tr>
+    </table>
+    <script>
+      let price = null, volume;
+      function update(json) {
+        if(!price) {
+           price = document.getElementById("price");
+           volume = document.getElementById("volume");
+        }
+        if(json) {
+          price.innerHTML = json.price;
+          volume.innerHTML = json.volume;
+        }
+        makeAjaxRequest();
+      }
+      function makeAjaxRequest() {
+        fetch('/page/dukeetf')
+        .then(req => req.json())
+        .then(update)
+        .catch(e => {
+          console.log(e);
+          update(null);
+        });
+      }
+    </script>
+  </body>
+</html>

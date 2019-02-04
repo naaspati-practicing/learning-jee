@@ -1,17 +1,22 @@
 package _toast_java;
 
-import java.util.Arrays;
+import java.lang.reflect.Modifier;
+import java.util.stream.Stream;
 
 public class Main {
 
 	public static void main(String[] args) {
-		String[] array1 = new String[24];
-		for (int i = 0; i < array1.length; i++) {
-			array1[i] = get(i+1);
+		/*
+		 * ThreadLocalRandom ran = ThreadLocalRandom.current();
+		for (int i = 0; i < 100; i++) {
+			System.out.println(ran.nextDouble(-0.5, 0.5));	
 		}
-
-		System.out.println(Arrays.toString(array1)+"\n"+Arrays.toString(mood_at_hour));
-		System.out.println(Arrays.equals(array1, mood_at_hour));
+		 */
+		double d = .123445;
+		Stream.of(StrictMath.class.getMethods())
+		.filter(m -> Modifier.isStatic(m.getModifiers()))
+		.filter(m -> m.getReturnType() == double.class)
+		.forEach(s -> System.out.println(s));
 	}
 	
 	private static final int[][] hours = {
