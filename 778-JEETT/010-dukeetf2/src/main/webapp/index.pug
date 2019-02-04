@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    meta(http-equiv="X-UA-Compatible", content="ie=edge")
+    title Duke's HTTP ETF
+    link(rel="stylesheet", href="resources/css/styles.css")
+  body(onload='startWebSocket();')
+    h1 Duke's HTTP ETF
+    table
+      tr
+        td(width='100px') Ticker
+        td(align='center') Price
+        td#price(style='font-size:24pt;font-weight:bold;') --.--
+      tr 
+        td(style='font-size:18pt;font-weight:bold;', width='100px') DKEJ
+        td(align='center') Volume
+        td#volume(align='right') --
+    
+    script
+      include ./index.js

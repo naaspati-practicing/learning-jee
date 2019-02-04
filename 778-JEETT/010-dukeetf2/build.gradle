@@ -1,0 +1,13 @@
+apply plugin: 'java'
+apply plugin: 'war'
+apply from: '../build.gradle'
+
+welcomePage = 'index.html'
+
+description = '''
+tut-install /examples/web/websocket/dukeetf2/
+
+demonstrates how to use a WebSocket endpoint to provide data updates to web clients.
+
+ 
+ '''

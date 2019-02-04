@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(http-equiv="X-UA-Compatible", content="ie=edge")
+        title WebsocketBot
+        link(rel="stylesheet", href="resources/css/styles.css")
+    body
+      h1 WebsocketBot
+      | Your Name:
+      p
+        input#name(type="text", name="name", maxlength=20, size=20, onkeyup='checkJoin(event);')/
+        input#join(type="submit", value="Join!", onclick='sendJoin();')/
+      textarea#input(name="input", cols="70", rows="1", disabled, onkeyup='sendMessage(event);')
+      br/
+      textarea#textarea(name="textarea", cols="70", rows="20" readonly)
+      textarea#userlist(name="userlist", cols="20", rows="20" readonly)
+      br
+      br
+      br
+      input#showhideconsole(type="checkbox", name="showhideconsole", onclick='showHideConsole();')/
+      | Show Websocket Console
+      br
+      #consolediv
+        textarea#wsconsole(name="wsconsole", cols="80", rows="8" readonly, style="font-size:8pt;")
+
+      script
+            include ./index.js

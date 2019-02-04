@@ -1,0 +1,11 @@
+apply plugin: 'java'
+apply plugin: 'war'
+apply from: '../build.gradle'
+
+welcomePage = 'index.html'
+
+dependencies  {
+ // implementation 'com.j2html:j2html:+'
+  compile 'org.json:json:20180813'
+}
+
