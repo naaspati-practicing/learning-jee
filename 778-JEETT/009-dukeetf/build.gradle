@@ -1,0 +1,16 @@
+apply plugin: 'java'
+apply plugin: 'war'
+apply from: '../build.gradle'
+
+description = '''
+tut-install /examples/web/dukeetf/
+
+demonstrates how to use asynchronous processing in a servlet to provide
+data updates to web clients.
+
+The example resembles a service that provides periodic
+updates on the price and trading volume of an electronically traded fund (ETF).
+
+uses long polling
+ 
+ '''

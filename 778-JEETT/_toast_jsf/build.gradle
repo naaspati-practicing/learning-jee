@@ -2,4 +2,6 @@ apply plugin: 'java'
 apply plugin: 'war'
 apply from: '../build.gradle'
 
+// welcomePage = ''
+
 description = ''' DESCRIPTION '''

@@ -4,11 +4,25 @@ repositories {
 }
 
 ext.contextroot = 'page'
+ext.welcomePage = null
 
 task deploy(dependsOn:'war', type:Exec) {
  workingDir = war.destinationDir
  commandLine System.env['ASADMIN_EXE'],  'deploy', '--force=true', '--contextroot='+contextroot, war.archiveName
+  doLast {
+    println("running at: http://localhost:8080/$contextroot/")
+  }
 }
+
+task browse {
+  doLast {
+     if(contextroot && (welcomePage || welcomePage == '')) {
+       java.awt.Desktop.desktop.browse "http://localhost:8080/$contextroot/$welcomePage".toURI()
+    }
+   }
+}
+
+deploy.finalizedBy 'browse'
 
 task run(dependsOn:'waitUndeployRequest') {
   doLast {
