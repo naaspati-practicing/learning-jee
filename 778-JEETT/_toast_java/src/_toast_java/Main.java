@@ -10,11 +10,12 @@ import java.util.Calendar;
 import java.util.stream.Stream;
 
 public class Main {
-
 	public static void main(String[] args) {
-		System.out.println(ChronoUnit.YEARS.between(LocalDate.of(1992, 1, 12), LocalDate.now()));
+		System.out.println(Main.class.getAnnotation(Init.class));
 	}
 	
-	
-
+	@Init
+	String s;
 }
+
+

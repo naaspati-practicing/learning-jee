@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+html(xmlns="http://www.w3.org/1999/xhtml", 
+     xmlns:h="http://xmlns.jcp.org/jsf/html",
+     xmlns:ui="http://xmlns.jcp.org/jsf/facelets")
+
+  - proxyMaker = (beanName, properties) => new Proxy({beanName:beanName},  {  get(target, name) {  /* handler */ if((typeof properties === 'object') && !properties.includes(name)) { console.error(`WARNING: proprty:"${name}" not found in bean: "${target.beanName}"`); } return name ? `#{${target.beanName}.${name}}` :`#{${target.beanName}}` ;} });
+  - printer = proxyMaker("printer");
+  
+  ui:composition(template="/template.xhtml")
+    ui:define("name"="title") Simple Greeting
+    ui:define("name"="head") Simple Greeting
+    ui:define("name"="content") 
+      h:form#greetme
+        p
+          h:outputLabel( value="Enter your name: ",  for="name")/
+          h:inputText#name( value=printer.name)
+        p: h:commandButton( value='Say Hello!', action=printer.createSalutation)/
+        p: h:outputText(value=printer.salutation)/
+
