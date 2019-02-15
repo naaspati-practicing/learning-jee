@@ -2,7 +2,7 @@ apply plugin: 'java'
 apply plugin: 'war'
 apply from: '../build.gradle'
 
-// welcomePage = 'greeting'
+welcomePage = 'greeting'
 
 dependencies  {
   implementation 'com.j2html:j2html:+'
