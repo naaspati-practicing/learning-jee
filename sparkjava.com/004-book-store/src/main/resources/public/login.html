@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <title>Login</title>
+  </head>
+  <body>
+    <main id="loginBox">
+      <h1>LOGIN</h1>
+      <form action="j_security_check" method="post">
+        <p>Username
+          <input id="username" type="text" name="j_username"/>
+        </p>
+        <p>Password
+          <input id="password" type="password" name="j_password"/>
+        </p>
+      </form>
+      <div id="onError"></div>
+      <script>
+        const s = window.location.href;
+        const qn = s.indexOf('?');
+        const en = s.indexOf('error=true');
+        if(qn > 0 && en > 0 && en > qn)
+          document.getElementById('onError').innerHTML = "<p style='color:red'>Login Failed</p>";
+      </script>
+    </main>
+  </body>
+</html>

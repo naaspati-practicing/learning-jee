@@ -1,0 +1,33 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+repositories {
+    mavenCentral()
+}
+
+sourceCompatibility = JavaVersion.VERSION_1_8 
+targetCompatibility = JavaVersion.VERSION_1_8
+
+mainClassName = 'Main'
+
+dependencies {
+  implementation 'com.sparkjava:spark-core:2.7.2'
+  implementation 'org.slf4j:slf4j-jdk14:1.7.25'
+}
+
+run {
+    standardInput = System.in
+    systemProperties['java.util.logging.config.file'] = 'logging.properties'
+}
+
+task stage(dependsOn: ['clean', 'install'])
+
+task install(dependsOn:[installDist]) {
+  doLast {
+     def libdir = file(new File(installDist.destinationDir, 'lib'))
+     def prefix = libdir.toString() - (buildDir.parentFile.toString()+'\\') 
+     def list = libdir.list().collect{"$prefix/$it".replace('\\', '/')}.join(':')
+     file('Procfile').text = "web: java  \$JAVA_OPTS -cp \"$list\" ${mainClassName} \$PORT";
+  } 
+}

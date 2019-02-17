@@ -1,0 +1,1 @@
+web: java -cp "build/install/001-jar-hello-world/lib/001-jar-hello-world.jar:build/install/001-jar-hello-world/lib/json-20180813.jar" Main 1 2 3  
