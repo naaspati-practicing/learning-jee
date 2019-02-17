@@ -1,0 +1,38 @@
+apply plugin: 'java'
+apply plugin: 'application' 
+
+
+
+repositories {
+    jcenter()
+}
+
+mainClassName = 'Main'
+
+// HTTP TRACE Support Jersey Example App
+
+/*
+ TESTS
+ 
+ http TRACE http://localhost:8080/tracing/programmatic --verbose
+ http TRACE http://localhost:8080/tracing/annotated --verbose
+
+*/
+
+
+ext.JERSEY_VERSION = '2.27'
+
+dependencies {
+  compile( *[
+  'org.glassfish.jersey.containers:jersey-container-grizzly2-http',
+  'org.glassfish.jersey.inject:jersey-hk2'
+  ]
+  .collect({s -> s+(s.endsWith(':') ? "" : ":")+JERSEY_VERSION})
+  )
+  compile 'org.json:json:20180813'
+}
+
+run {
+    standardInput = System.in
+    systemProperties['java.util.logging.config.file'] = 'logging.properties'
+}

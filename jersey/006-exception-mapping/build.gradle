@@ -1,0 +1,27 @@
+apply plugin: 'java'
+apply plugin: 'application' 
+
+// UN-TESTED
+
+repositories {
+    jcenter()
+}
+
+mainClassName = 'Main'
+
+
+ext.JERSEY_VERSION = '2.27'
+
+dependencies {
+  compile( *[
+  'org.glassfish.jersey.containers:jersey-container-grizzly2-http',
+  'org.glassfish.jersey.inject:jersey-hk2'
+  ]
+  .collect({s -> s+(s.endsWith(':') ? "" : ":")+JERSEY_VERSION})
+  )
+}
+
+run {
+    standardInput = System.in
+    systemProperties['java.util.logging.config.file'] = 'logging.properties'
+}

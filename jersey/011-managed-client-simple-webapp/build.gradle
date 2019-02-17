@@ -1,0 +1,37 @@
+apply plugin: 'war'
+
+description = ''
+
+repositories {
+    jcenter()
+}
+
+// http://localhost:8080/page/rest/client/animals
+// http://localhost:8080/page/rest/client/glassfish
+// http://localhost:8080/page/rest/client/car/10
+
+war {
+  archiveName = 'page.war'
+  destinationDir = file(System.env.JETTY_BASE+'/webapps/')
+  exclude('**/*.pug')
+}
+
+
+/*
+dependencies {
+  providedCompile 'javax:javaee-api:7.0' 
+}
+
+*/
+
+
+ext.JERSEY_VERSION = '2.27'
+
+dependencies {
+  providedCompile ( *[
+  'org.glassfish.jersey.containers:jersey-container-servlet',
+   'org.glassfish.jersey.inject:jersey-hk2',
+  ]
+  .collect({s -> s+(s.endsWith(':') ? "" : ":")+JERSEY_VERSION})
+  )  
+}

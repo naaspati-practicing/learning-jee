@@ -1,0 +1,22 @@
+apply plugin: 'war' 
+
+repositories {
+    jcenter()
+}
+
+ext.JERSEY_VERSION = '2.27'
+
+dependencies {
+  providedCompile 'org.glassfish.jersey.containers:jersey-container-grizzly2-http:'+JERSEY_VERSION
+  providedCompile 'org.glassfish.jersey.inject:jersey-hk2:'+JERSEY_VERSION
+
+  testCompile 'org.glassfish.jersey.test-framework.providers:jersey-test-framework-provider-bundle:'+JERSEY_VERSION
+  compile files('../_utils/build/libs/_utils.jar')
+  
+}
+
+war {
+  archiveName = 'page.war'
+  destinationDir = file(System.env.JETTY_BASE+'/webapps/')
+  exclude('**/*.pug')
+}	

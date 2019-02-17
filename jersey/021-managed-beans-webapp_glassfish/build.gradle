@@ -1,0 +1,18 @@
+apply plugin: 'war'
+
+description = ''
+
+repositories {
+    jcenter()
+}
+
+task run(dependsOn:'war', type:Exec) {
+ workingDir = war.destinationDir
+ commandLine System.env['ASADMIN_EXE'],  'deploy', '--force=true', '--contextroot=page', "${war.archiveName}"
+}
+
+ext.JERSEY_VERSION = '2.27'
+
+dependencies {
+  providedCompile 'javax:javaee-api:7.0'
+}

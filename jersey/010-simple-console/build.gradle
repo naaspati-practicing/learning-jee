@@ -1,0 +1,29 @@
+apply plugin: 'java'
+apply plugin: 'application' 
+
+description = ''
+
+repositories {
+    jcenter()
+}
+
+mainClassName = 'server.main.Main'
+
+ext.JERSEY_VERSION = '2.27'
+
+dependencies {
+  compile( *[
+  'org.glassfish.jersey.containers:jersey-container-grizzly2-http',
+  'org.glassfish.jersey.inject:jersey-hk2',
+  'org.glassfish.jersey.media:jersey-media-json-jettison'
+  ]
+  .collect({s -> s+(s.endsWith(':') ? "" : ":")+JERSEY_VERSION})
+  )
+  testCompile 'org.glassfish.jersey.test-framework.providers:jersey-test-framework-provider-bundle:'+JERSEY_VERSION
+  compile 'com.j2html:j2html:1.3.0'  
+}
+
+run {
+    standardInput = System.in
+    systemProperties['java.util.logging.config.file'] = 'logging.properties'
+}

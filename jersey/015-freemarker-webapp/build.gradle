@@ -1,0 +1,24 @@
+apply plugin: 'war'
+
+description = ''
+
+repositories {
+    jcenter()
+}
+
+// http://localhost:8080/page/rest/hello
+
+war {
+  archiveName = 'page.war'
+  destinationDir = file(System.env.JETTY_BASE+'/webapps/')
+  exclude('**/*.pug')
+}
+
+ext.JERSEY_VERSION = '2.27'
+
+dependencies {
+  providedCompile 'org.glassfish.jersey.containers:jersey-container-servlet:'+JERSEY_VERSION
+  providedCompile 'org.glassfish.jersey.inject:jersey-hk2:'+JERSEY_VERSION
+  compile 'org.glassfish.jersey.ext:jersey-mvc-freemarker:'+JERSEY_VERSION
+  compile files('../_utils/build/libs/_utils.jar')
+}

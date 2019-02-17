@@ -1,0 +1,43 @@
+apply plugin: 'java'
+apply plugin: 'application' 
+
+
+/* issues i faced
+
+ - without copyResources task, mentioned exception occurs
+ - with bean-discovery-mode="all", in beans.xml, abmbigueous exception thrown for sam.jersey.app.App. 
+   - solved with bean-discovery-mode="annotated"
+*/
+
+repositories {
+    jcenter()
+}
+
+mainClassName = 'Main'
+description = 'Jersey "Hello world" example with CDI 2 SE.'
+ext.JERSEY_VERSION = '2.27'
+
+dependencies {
+  compile 'org.glassfish.jersey.containers:jersey-container-grizzly2-http:'+JERSEY_VERSION
+  compile 'org.glassfish.jersey.inject:jersey-hk2:'+JERSEY_VERSION
+  compile 'org.glassfish.jersey.inject:jersey-cdi2-se:'+JERSEY_VERSION
+
+  testCompile 'org.glassfish.jersey.test-framework:jersey-test-framework-util:'+JERSEY_VERSION
+  testCompile 'org.glassfish.jersey.test-framework.providers:jersey-test-framework-provider-bundle:'+JERSEY_VERSION
+  compile files('../_utils/build/libs/_utils.jar')
+  
+}
+
+// without this  run throws
+//  org.jboss.weld.exceptions.DeploymentException: WELD-001408: Unsatisfied dependencies for type HelloBean with qualifiers @Default  
+task copyResources(type: Copy) {
+    from "${projectDir}/src/main/resources/META-INF"
+    into "${buildDir}/classes/java/main/META-INF"
+}
+
+processResources.dependsOn copyResources
+
+run {
+    standardInput = System.in
+    systemProperties['java.util.logging.config.file'] = 'logging.properties'
+}

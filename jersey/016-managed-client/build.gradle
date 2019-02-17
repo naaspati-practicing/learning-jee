@@ -1,0 +1,30 @@
+apply plugin: 'java'
+apply plugin: 'application' 
+
+
+
+repositories {
+    jcenter()
+}
+
+description = '"Managed Client" Jersey Example App'
+
+
+mainClassName = 'Main'
+
+
+ext.JERSEY_VERSION = '2.27'
+
+dependencies {
+  compile 'org.glassfish.jersey.containers:jersey-container-grizzly2-http:'+JERSEY_VERSION
+  compile 'org.glassfish.jersey.inject:jersey-hk2:'+JERSEY_VERSION
+
+  testCompile 'org.glassfish.jersey.test-framework.providers:jersey-test-framework-provider-bundle:'+JERSEY_VERSION
+  compile files('../_utils/build/libs/_utils.jar')
+  
+}
+
+run {
+    standardInput = System.in
+    systemProperties['java.util.logging.config.file'] = 'logging.properties'
+}

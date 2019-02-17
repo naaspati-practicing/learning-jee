@@ -1,0 +1,29 @@
+apply plugin: 'war' 
+
+
+
+repositories {
+    jcenter()
+}
+
+
+war {
+  archiveName = 'page.war'
+  destinationDir = file(System.env.JETTY_BASE+'/webapps/')
+  exclude('**/*.pug')
+}
+
+ext.JERSEY_VERSION = '2.27'
+
+dependencies {
+  compile 'org.jboss.weld.servlet:weld-servlet-core:3.0.5.Final'
+  compile( *[
+  'org.glassfish.jersey.containers:jersey-container-jetty-servlet',
+  'org.glassfish.jersey.inject:jersey-hk2',
+  
+  'org.glassfish.jersey.ext.cdi:jersey-cdi1x-servlet'
+  ]
+  .collect({s -> s+(s.endsWith(':') ? "" : ":")+JERSEY_VERSION})
+  )
+  
+}

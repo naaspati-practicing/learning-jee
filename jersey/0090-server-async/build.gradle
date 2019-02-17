@@ -1,0 +1,36 @@
+apply plugin: 'java'
+apply plugin: 'application' 
+
+
+
+repositories {
+    jcenter()
+}
+
+/*
+http://localhost:8080/rest/async/messaging/blocking/hello
+
+  
+*/
+
+mainClassName = 'Main'
+
+description = 'Jersey JAX-RS asynchronous server-side example.'
+
+ext.JERSEY_VERSION = '2.27'
+
+dependencies {
+  compile( *[
+  'org.glassfish.jersey.containers:jersey-container-grizzly2-http',
+  'org.glassfish.jersey.inject:jersey-hk2'
+  ]
+  .collect({s -> s+(s.endsWith(':') ? "" : ":")+JERSEY_VERSION})
+  )
+  compile 'org.json:json:20180813'
+  testCompile 'org.glassfish.jersey.test-framework.providers:jersey-test-framework-provider-bundle:'+JERSEY_VERSION  
+}
+
+run {
+    standardInput = System.in
+    systemProperties['java.util.logging.config.file'] = 'logging.properties'
+}

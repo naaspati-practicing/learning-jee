@@ -1,0 +1,44 @@
+apply plugin: 'war'
+
+description = ''
+
+repositories {
+    jcenter()
+}
+
+ext.contextroot = 'page'
+
+task deploy(dependsOn:'war', type:Exec) {
+ workingDir = war.destinationDir
+ commandLine System.env['ASADMIN_EXE'],  'deploy', '--force=true', '--contextroot='+contextroot, war.archiveName
+}
+
+task run(dependsOn:'waitUndeployRequest') {
+  doLast {
+  }
+}
+
+run.finalizedBy 'undeploy'
+
+task undeploy(type:Exec) {
+  workingDir = war.destinationDir
+  commandLine System.env['ASADMIN_EXE'],  'undeploy', (war.archiveName - '.war')
+}
+
+task waitUndeployRequest(dependsOn:'deploy') {
+  doLast {
+    println 'type undeploy to undeploy'
+    Scanner sc = new Scanner(System.in);
+    while(true) {
+      def line = sc.nextLine();
+      if(line == 'undeploy')
+        break;
+      println('unknown command: '+line)
+    }
+  }
+}
+
+
+dependencies {
+  providedCompile 'javax:javaee-api:7.0'
+}

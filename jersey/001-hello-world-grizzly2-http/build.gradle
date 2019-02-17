@@ -1,0 +1,22 @@
+apply plugin: 'java'
+apply plugin: 'application' 
+
+
+
+repositories {
+    jcenter()
+}
+
+mainClassName = 'Main'
+
+
+ext.JERSEY_VERSION = '2.27'
+
+dependencies {
+  compile 'org.glassfish.jersey.containers:jersey-container-grizzly2-http:'+JERSEY_VERSION
+  compile 'org.glassfish.jersey.inject:jersey-hk2:'+JERSEY_VERSION
+}
+
+run {
+    standardInput = System.in
+}
