@@ -4,4 +4,7 @@ apply from: '../build.gradle'
 
 welcomePage = ''
 
-description = ''' DESCRIPTION '''
+description = '''
+tut-install /examples/cdi/decorators/src/main/java/javaeetutorial/billpayment/
+ 
+ '''
