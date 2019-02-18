@@ -1,0 +1,1 @@
+web: java $JAVA_OPTS -cp "sam-app/002-NanoHttpd-hello-world-0.001.jar:sam-app/j2html-1.2.2.jar:sam-app/nanohttpd-2.3.1.jar" Main $PORT
