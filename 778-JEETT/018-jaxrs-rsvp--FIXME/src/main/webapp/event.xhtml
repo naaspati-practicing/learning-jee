@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core">
+  <h:head>
+    <title>Duke's RSVP - Event Status</title>
+    <h:outputStylesheet library="css" name="default.css"/>
+  </h:head>
+  <h:body>
+    <h1>
+       Response For 
+      <h:outputText value="#{eventManager.currentEvent.name}"/>
+    </h1>
+    <h:form>
+      <h:dataTable var="response" value="#{eventManager.retrieveEventResponses()}" summery="List of all responses for Event">
+        <h:column>
+          <f:facet name="header">
+            <h:outputText value="Name"/>
+          </f:facet>
+          <h:outputText value="#{response.person.firstName} #{response.person.lastName}"/>
+        </h:column>
+        <h:column>
+          <f:facet name="header">
+            <h:outputText value="Status"/>
+          </f:facet>
+          <h:commandLink value="#{response}" action="#{eventManager.viewResponse(response)}"></h:commandLink>
+        </h:column>
+      </h:dataTable>
+    </h:form><br/>
+    <h:link outcome="index" value="Back to the main page."/>
+  </h:body>
+</html>

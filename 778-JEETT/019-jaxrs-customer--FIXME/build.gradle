@@ -1,0 +1,11 @@
+apply plugin: 'java'
+apply plugin: 'war'
+apply from: '../build.gradle'
+
+welcomePage = ''
+
+description = '''
+C:/Users/Sameer/Documents/MEGAsync/_unzipped/JAVA/JAVA_EE/778-JEETT/javaee8-tutorial-examples/jaxrs/customer
+
+ 
+ '''

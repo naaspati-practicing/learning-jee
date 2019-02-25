@@ -35,6 +35,7 @@ public class Main {
 		
 		System.out.println(sb);
 		
+		Runtime.getRuntime().addShutdownHook(new Thread(() -> System.out.println("STOPPING: "+LocalDateTime.now())));
 		
 		/*
 		 * Path p = Paths.get("printed");

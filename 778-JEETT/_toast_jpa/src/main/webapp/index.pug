@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+html(xmlns="http://www.w3.org/1999/xhtml", 
+     xmlns:h="http://xmlns.jcp.org/jsf/html",
+     xmlns:f="http://xmlns.jcp.org/jsf/core")
+
+  - proxyMaker = (beanName, properties) => new Proxy({beanName:beanName},  {  get(target, name) {  /* handler */ if((typeof properties === 'object') && !properties.includes(name)) { console.error(`WARNING: proprty:"${name}" not found in bean: "${target.beanName}"`); } return name ? `#{${target.beanName}.${name}}` :`#{${target.beanName}}` ;} });  
+  - hb = proxyMaker("helloBean", []);
+  
+  h:head
+    title Hello JPA
+  h:body
+    h:form
+      h:dataTable(var='helloEntity', value=hb.all)
+        - t = proxyMaker("helloEntity")
+        h:column
+          f:facet(name='header')
+            h:outputText(value='id')/
+          h:outputText(value=t.id)/
+        h:column
+          f:facet(name='header')
+            h:outputText(value='message')/
+          h:outputText(value=t.msg)/
+        h:column
+          h:commandButton#deleteButton( value="delete", action=hb[`delete(helloEntity)`])
+
+    h:form
+      h:outputLabel( value="Send Message",  for="message")/
+      h:inputText#message(required="true", binding=`#{messageInput}`)
+        f:validateLength(minimum=5)
+      h:commandButton#sendMessage( value="Send Message", action=hb['put(messageInput.value)'])
+      

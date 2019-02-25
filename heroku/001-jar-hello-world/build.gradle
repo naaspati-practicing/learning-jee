@@ -22,6 +22,10 @@ task cleanSamApp(type: Delete) {
 task stage(type: Copy, dependsOn: ['cleanSamApp', 'clean', 'installDist']) {
   from new File(installDist.destinationDir, 'lib')
   into appdir
+  
+  doLast {
+    delete buildDir // minor reduce of slug size
+  }
 }
 
 task procfile(dependsOn: ['installDist']) {

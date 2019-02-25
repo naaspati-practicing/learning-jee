@@ -1,0 +1,15 @@
+apply plugin: 'java'
+apply plugin: 'war'
+apply from: '../build.gradle'
+
+welcomePage = ''
+
+description = '''
+ - tut-install /examples/jaxrs/rsvp/
+ - logs if invitees will attend the event 
+ - responses to the invite are stored in a DB using JPA
+ - JAX-RS resources in rsvp are exposed in a stateless session enterprise bean.
+
+ '''
+ 
+ // FIXME -- not working

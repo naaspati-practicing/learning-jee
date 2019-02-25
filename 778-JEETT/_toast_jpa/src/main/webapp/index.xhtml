@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core">
+  <h:head>
+    <title>Hello JPA</title>
+  </h:head>
+  <h:body>
+    <h:form>
+      <h:dataTable var="helloEntity" value="#{helloBean.all}">
+        <h:column>
+          <f:facet name="header">
+            <h:outputText value="id"/>
+          </f:facet>
+          <h:outputText value="#{helloEntity.id}"/>
+        </h:column>
+        <h:column>
+          <f:facet name="header">
+            <h:outputText value="message"/>
+          </f:facet>
+          <h:outputText value="#{helloEntity.msg}"/>
+        </h:column>
+        <h:column>
+          <h:commandButton id="deleteButton" value="delete" action="#{helloBean.delete(helloEntity)}"></h:commandButton>
+        </h:column>
+      </h:dataTable>
+    </h:form>
+    <h:form>
+      <h:outputLabel value="Send Message" for="message"/>
+      <h:inputText id="message" required="true" binding="#{messageInput}">
+        <f:validateLength minimum="5"></f:validateLength>
+      </h:inputText>
+      <h:commandButton id="sendMessage" value="Send Message" action="#{helloBean.put(messageInput.value)}"></h:commandButton>
+    </h:form>
+  </h:body>
+</html>
