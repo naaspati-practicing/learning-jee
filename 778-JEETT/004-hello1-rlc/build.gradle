@@ -1,5 +1,5 @@
 apply plugin: 'java'
 apply plugin: 'war'
-apply from: '../build.gradle'
+apply from: '../web.gradle'
 
 description = 'Resource Library Contracts example'

@@ -1,0 +1,16 @@
+// having issues with glassfish wsimport, thus using metro's wsimport directly 
+
+ext.wsimport_cmd = /C:\Users\Sameer\servers\metro\bin\wsimport.bat/
+
+task wsimport() {
+	doLast {
+	  if(!wsdl_url)
+        throw new GradleException('wsdl_url')
+	
+	  exec {
+	    commandLine wsimport_cmd,  '-d', buildDir, wsdl_url, '-clientjar', project.name+'.jar'
+	  }
+	}
+	
+  
+}

@@ -1,0 +1,22 @@
+apply from: '../configure.gradle'
+
+repositories {
+    jcenter()
+}
+
+if(!GLASSFISH_HOME)
+  throw new GradleException('GLASSFISH_HOME not set')
+  
+ext.appclient = GLASSFISH_HOME + 'glassfish\\bin\\appclient.bat'
+
+task run(dependsOn:'jar') {
+  doLast {
+     configurations.compile.collect {
+       java.nio.file.Files.copy(it.toPath(), new File(jar.destinationDir, it.name).toPath(), java.nio.file.StandardCopyOption.REPLACE_EXISTING)
+     }
+      exec {
+        commandLine appclient, '-client', "${jar.destinationDir}\\${jar.archiveName}"
+     }
+     
+  }
+}

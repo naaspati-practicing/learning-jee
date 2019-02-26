@@ -1,0 +1,32 @@
+plugins {
+    id 'java'
+}
+apply from: '../appclient.gradle'
+
+/* STEPS to run this
+  1. goto project 021-jaxws-helloservice-war
+     - deploy war   (gradle deploy)
+     - run wsimport (gradle wsimport)
+       - this will create '../021-jaxws-helloservice-war/build/021-jaxws-helloservice-war.jar'
+       
+  2. return to this project
+     - run project (gradle run)
+  
+  3. goto project 021-jaxws-helloservice-war 
+     - undeploy war (undeploy gradle) 
+*/
+
+dependencies {
+  compile files('../021-jaxws-helloservice-war/build/021-jaxws-helloservice-war.jar')
+}
+
+ext.mainClassName = 'javaeetutorial.hello.appclient.HelloAppClient'
+
+jar {
+  manifest {
+    attributes(
+      'Class-Path': configurations.compile.collect { it.getName() }.join(' '),
+      'Main-Class': mainClassName
+    )
+  }
+}

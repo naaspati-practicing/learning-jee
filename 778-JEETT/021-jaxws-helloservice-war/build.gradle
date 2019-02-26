@@ -1,0 +1,7 @@
+apply plugin: 'java'
+apply plugin: 'war'
+apply from: '../web.gradle'
+apply from: '../wsimport.gradle'
+
+welcomePage = ['HelloService?wsdl', 'HelloService?Tester']
+ext.wsdl_url = baseuri+'HelloService?wsdl'
