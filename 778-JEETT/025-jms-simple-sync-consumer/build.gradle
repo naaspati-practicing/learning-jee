@@ -1,0 +1,19 @@
+plugins {
+    id 'java'
+}
+apply from: '../appclient.gradle'
+
+dependencies {
+  compileOnly 'javax.jms:javax.jms-api:2.0'
+}
+
+ext.mainClassName = 'javaeetutorial.sync.consumer.SynchConsumer'
+
+jar {
+  manifest {
+    attributes(
+      'Class-Path': configurations.compile.collect { it.getName() }.join(' '),
+      'Main-Class': mainClassName
+    )
+  }
+}
