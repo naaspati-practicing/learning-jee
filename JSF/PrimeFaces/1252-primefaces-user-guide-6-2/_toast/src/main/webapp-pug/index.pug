@@ -1,0 +1,9 @@
+extends ./skeleton.pug
+block head
+  title links
+
+block body 
+  each val in ['accordionPanel.xhtml']
+    h:outputLink(value=val)=val.replace('.xhtml', '')
+      
+  
