@@ -1,0 +1,88 @@
+extends ../skeleton.pug
+
+block head
+  title autoComplete
+  style
+    include ./styles.css
+
+block body
+  h:form
+    mixin hotxt(value)
+      h:outputText(value=value)/
+      
+    p:growl#msgs(showDetail="true")/
+    h:panelGrid(columns=2, cellpadding=5)
+      - a = proxyMaker("autoCompleteView")
+      mixin unit(attrs, title, id, value, completeMethod)
+        p:outputLabel(value=title, for=id)/
+        if block
+          p:autoComplete(id=id, value=a[value], completeMethod=a[completeMethod ? completeMethod : 'completeText'])&attributes(attrs)
+            block
+        else
+          p:autoComplete(id=id, value=a[value], completeMethod=a[completeMethod ? completeMethod : 'completeText'])&attributes(attrs)/
+        |
+        |
+       
+      +unit({}, "Simple", "acSimple", "txt1")
+      +unit({minQueryLength:3, effect:'fade'}, "Min Length(3)", "acMinlen", "txt2")
+      +unit({queryDelay:1000, effect:'blind'}, "Delay(1000)", "acDelay", "txt3")
+      +unit({maxResults:5}, "Max Result(5)", "acMaxResults", "txt4")
+      +unit({forceSelection:'true'}, "Force Selection(5)", "acForceSelect", "txt5")
+      +unit({dropdown:'true'}, "DropDown", "dd", "txt6")
+      +unit({cache:"true",cacheTimeout:30000}, "Cache", "cache", "txt7")
+      +unit({}, "Select Event:", "event", "txt8")
+        p:ajax(event='itemSelect', listener=a.onItemSelect, update='msgs')/
+      - t = proxyMaker("theme")
+      - themeAttrs = {var:'theme', itemLabel:t.displayName, itemValue:t[''], converter:'themeConverter', forceSelection:'true'};
+      +unit(themeAttrs, "Pojo", "themepojo", "theme1", "completeTheme")
+      +unit(themeAttrs, "Custom Content:", "themeCustom", "theme2", 'completeTheme')
+        p:column
+          h:graphicImage(value=randomImg(30, 30, t.imgNumber),  alt=t.name, styleClass='ui-theme')/
+        p:column
+          +hotxt(t.displayName)
+      +unit(Object.assign({multiple:'true'}, themeAttrs), "Multiple:", "themes", "selectedThemes", 'completeTheme')
+        p:column(style='width:10%')
+          h:graphicImage(value=randomImg(30, 30, t.imgNumber),  alt=t.name, styleClass='ui-theme')/
+        p:column
+          +hotxt(t.displayName)
+  
+      +unit(themeAttrs, "ItemTip", "itemtip", "theme3", 'completeTheme')
+        f:facet(name='itemtip')
+          h:panelGrid(columns=2, cellpadding=5)
+            f:facet(name='header')
+              h:graphicImage(value=randomImg(30, 30, t.imgNumber),  alt=t.name, styleClass='ui-theme')/
+            +hotxt("Display: ")
+            +hotxt(t.displayName)
+            +hotxt("Key")
+            +hotxt(t.name)
+            
+      +unit(Object.assign({groupBy:a['getThemeGroup(theme)'], scrollHeight250}, themeAttrs), "Group", 'group', 'theme4', 'completeThemeContains')
+    
+    p:commandButton(value='submit', icon='pi pi-check', update='output msgs', oncomplete="PF('dlg').show()")/
+
+    p:dialog(header='Values', resizable='false', showEffect='fade', widgetVar='dlg')
+      p:panelGrid(id='output', columns=2, columnClasses='label, value')
+        mixin fields(title, field)
+          +hotxt(title)
+          if block
+            block
+          else
+            +hotxt(a[field])
+          |
+          |
+
+        +fields('Simple: ', 'txt1')
+        +fields('Min Length: ', 'txt2')
+        +fields('Delay: ', 'txt3')
+        +fields('Max Results: ', 'txt4')
+        +fields('Force Selection: ', 'txt5')
+        +fields('DropDown: ', 'txt6')
+        +fields('Cache: ', 'txt7')
+        +fields('Select Event: ', 'txt8')
+        +fields('PoJo: ', 'theme1')
+        +fields('Custom Content: ', 'theme2')
+        +fields('Multiple: ')
+          p:dataList(value=a.selectedThemes)
+            +hotxt(`#{t}`)
+        +fields('ItemTip: ', 'theme3')
+        

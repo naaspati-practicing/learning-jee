@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:p="http://primefaces.org/ui" xmlns:f="http://xmlns.jcp.org/jsf/core">
+  <h:head>
+    <title>accordionPanel</title>
+  </h:head>
+  <h:body>
+    <h2>AccordionPanel</h2>
+    <p>AccordionPanel is a container component with vertically stacked panels.  </p>
+    <h:form id="form">
+      <p:growl id="msgs" showDetail="true"/>
+            <h3 style="margin-top:0;">Basic</h3>
+            <p:accordionPanel>
+                    <p:tab title="Godfather Part I">
+                      <h:panelGrid columns="2" cellpadding="10"><img src="https://picsum.photos/200/300?image=597"/>
+                        <h:outputText value="Occaecat esse sint aute elit aliquip esse adipisicing dolore eiusmod nulla amet. Ad voluptate voluptate magna deserunt. Cupidatat mollit aute non minim sunt eiusmod. Consectetur aute dolor commodo consequat consectetur. Commodo deserunt ea labore exercitation aliquip officia enim culpa sunt."/>
+                      </h:panelGrid>
+                    </p:tab>
+                    <p:tab title="Godfather Part II">
+                      <h:panelGrid columns="2" cellpadding="10"><img src="https://picsum.photos/200/300?image=24"/>
+                        <h:outputText value="Mollit veniam adipisicing reprehenderit nostrud labore anim. Incididunt incididunt ut ipsum Lorem dolor proident nisi irure sit irure sint ea labore incididunt. Exercitation incididunt duis deserunt aliquip nostrud anim cillum id veniam officia elit anim exercitation. Elit consectetur aliqua deserunt duis amet qui. Esse fugiat cupidatat consectetur duis excepteur."/>
+                      </h:panelGrid>
+                    </p:tab>
+                    <p:tab title="Godfather Part III">
+                      <h:panelGrid columns="2" cellpadding="10"><img src="https://picsum.photos/200/300?image=726"/>
+                        <h:outputText value="Aute qui sint magna id reprehenderit deserunt. Deserunt irure nulla aute laboris id exercitation deserunt aliquip officia magna dolor labore. Pariatur dolore velit nisi magna. Consequat nulla ad labore proident proident laborum exercitation aute sunt. Mollit dolore pariatur sint dolore in."/>
+                      </h:panelGrid>
+                    </p:tab>
+                    <hr/>
+            </p:accordionPanel>
+            <h3 style="margin-top:0;">Multiple selection</h3>
+            <p:accordionPanel multiple="true">
+                    <p:tab title="Godfather Part I">
+                      <h:panelGrid columns="2" cellpadding="10"><img src="https://picsum.photos/200/300?image=865"/>
+                        <h:outputText value="Laboris dolor excepteur ex reprehenderit est exercitation sit incididunt ad in proident. Tempor ex consectetur proident irure pariatur aute quis amet enim enim voluptate qui. Duis commodo sunt sit ipsum occaecat aute proident sunt ipsum ea adipisicing do nostrud. Duis anim ex Lorem consectetur id exercitation nisi incididunt dolore. Labore occaecat aliqua excepteur ut eu cupidatat."/>
+                      </h:panelGrid>
+                    </p:tab>
+                    <p:tab title="Godfather Part II">
+                      <h:panelGrid columns="2" cellpadding="10"><img src="https://picsum.photos/200/300?image=32"/>
+                        <h:outputText value="Occaecat ex adipisicing qui sit anim elit voluptate adipisicing veniam commodo aute nostrud laboris. Sint nostrud nisi non fugiat fugiat sit. Ipsum proident consectetur culpa dolore. Culpa esse Lorem sunt incididunt sint amet irure irure sunt. Quis ex fugiat aliquip ullamco fugiat consequat amet aliqua nostrud Lorem cupidatat."/>
+                      </h:panelGrid>
+                    </p:tab>
+                    <p:tab title="Godfather Part III">
+                      <h:panelGrid columns="2" cellpadding="10"><img src="https://picsum.photos/200/300?image=87"/>
+                        <h:outputText value="Labore voluptate proident amet sit laborum eu deserunt sunt est magna. Aliquip nulla id sunt dolore cillum velit pariatur id ea do aliqua velit. Culpa ipsum officia aliqua mollit nisi exercitation enim aute. Ut ut laborum qui ea occaecat occaecat aute et non nostrud deserunt reprehenderit. Exercitation duis veniam ex nostrud laboris."/>
+                      </h:panelGrid>
+                    </p:tab>
+                    <hr/>
+            </p:accordionPanel>
+            <h3 style="margin-top:0;">On-demand loading</h3>
+            <p:accordionPanel dynamic="true" cache="true">
+                    <p:tab title="Godfather Part I">
+                      <h:panelGrid columns="2" cellpadding="10"><img src="https://picsum.photos/200/300?image=953"/>
+                        <h:outputText value="Exercitation elit aliqua voluptate dolore id sint consectetur reprehenderit sit. Nostrud ex consequat ullamco velit amet duis commodo quis do et. Dolor occaecat magna do magna. Commodo sint esse consequat velit dolore amet ut nulla Lorem cupidatat pariatur velit. Ullamco elit esse aliqua minim sit excepteur adipisicing."/>
+                      </h:panelGrid>
+                    </p:tab>
+                    <p:tab title="Godfather Part II">
+                      <h:panelGrid columns="2" cellpadding="10"><img src="https://picsum.photos/200/300?image=314"/>
+                        <h:outputText value="Consequat quis esse cupidatat eu labore nisi. Proident exercitation laborum est dolore nostrud sunt nostrud consequat minim. Consectetur labore labore proident exercitation. Exercitation fugiat occaecat reprehenderit nisi nulla fugiat. Reprehenderit ea officia commodo proident ea do magna."/>
+                      </h:panelGrid>
+                    </p:tab>
+                    <p:tab title="Godfather Part III">
+                      <h:panelGrid columns="2" cellpadding="10"><img src="https://picsum.photos/200/300?image=490"/>
+                        <h:outputText value="In laboris aliquip do et adipisicing esse excepteur. Sunt incididunt sunt non mollit sunt aliquip nisi id tempor. Qui deserunt eiusmod enim sunt tempor esse ex incididunt laboris irure velit sit. Do laboris culpa et commodo proident dolor enim magna eu officia sint. Do nulla ullamco magna dolor irure in ut mollit tempor adipisicing sit anim."/>
+                      </h:panelGrid>
+                    </p:tab>
+                    <hr/>
+            </p:accordionPanel>
+      <h3>Change Event</h3>
+      <p:accordionPanel>
+        <p:ajax event="tabChange" listener="#{tabbedView.onTabChange}" update=":form:msgs"/>
+        <p:ajax event="tabClose" listener="#{tabbedView.onTabClose}" update=":form:msgs"/>
+              <p:tab title="Godfather Part I">
+                <h:panelGrid columns="2" cellpadding="10"><img src="https://picsum.photos/200/300?image=696"/>
+                  <h:outputText value="Lorem eiusmod cupidatat voluptate commodo incididunt qui duis amet eiusmod sint do exercitation. Minim qui ut sint aliqua officia cupidatat non laborum Lorem. Consequat id cupidatat ut ea commodo. Anim proident cillum labore sint. Reprehenderit laboris ipsum velit aliquip tempor deserunt occaecat."/>
+                </h:panelGrid>
+              </p:tab>
+              <p:tab title="Godfather Part II">
+                <h:panelGrid columns="2" cellpadding="10"><img src="https://picsum.photos/200/300?image=752"/>
+                  <h:outputText value="Magna dolore fugiat laborum aliqua exercitation sunt et. Anim voluptate fugiat ea minim tempor ea in cillum ad officia occaecat aliqua esse ut. Do excepteur magna ut exercitation. Voluptate dolore nisi velit deserunt deserunt est nostrud anim ut mollit deserunt elit ad. Labore anim qui excepteur aliqua dolore irure qui laboris aute proident ullamco."/>
+                </h:panelGrid>
+              </p:tab>
+              <p:tab title="Godfather Part III">
+                <h:panelGrid columns="2" cellpadding="10"><img src="https://picsum.photos/200/300?image=191"/>
+                  <h:outputText value="Mollit fugiat dolore consectetur nisi laboris incididunt incididunt tempor. Excepteur ea fugiat voluptate do eiusmod deserunt sit non proident consequat nisi proident commodo duis. Mollit cillum mollit dolore qui officia sunt deserunt incididunt. Qui amet sint cupidatat ipsum dolor aliqua occaecat do veniam esse. Do consectetur ipsum deserunt incididunt velit est voluptate quis eiusmod amet velit nostrud."/>
+                </h:panelGrid>
+              </p:tab>
+              <hr/>
+      </p:accordionPanel>
+      <h3>DataModel</h3>
+      <p:accordionPanel value="#{tabbedView.cars}" var="car">
+        <p:tab title="Car #{car.id}">
+          <h:panelGrid columns="2" cellpadding="5">
+            <f:facet name="header">
+              <h:graphicImage value="https://source.unsplash.com/600x300?#{car.brand},car" alt="#{car.brand}"/>
+            </f:facet>
+                        <h:outputText value="Brand: " style="font-weight:bold;"/>
+                        <h:outputText value="#{car.brand}"/>
+                        <h:outputText value="Year: " style="font-weight:bold;"/>
+                        <h:outputText value="#{car.year}"/>
+                        <h:outputText value="Color: " style="font-weight:bold;"/>
+                        <h:outputText value="#{car.color}"/>
+          </h:panelGrid>
+        </p:tab>
+      </p:accordionPanel>
+    </h:form>
+  </h:body>
+</html>

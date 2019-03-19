@@ -1,0 +1,12 @@
+extends ./skeleton.pug
+block head
+  title links
+
+block body 
+  mixin link(val)
+    p: h:outputLink(value=val)=val.replace('.xhtml', '')
+  
+  +link('accordion/accordionPanel.xhtml')
+  +link('auto-complete/autoComplete.xhtml')
+      
+  

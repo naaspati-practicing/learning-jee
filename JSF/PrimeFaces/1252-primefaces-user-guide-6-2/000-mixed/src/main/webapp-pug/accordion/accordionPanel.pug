@@ -1,0 +1,50 @@
+extends ../skeleton.pug
+
+block head
+  title accordionPanel
+
+block body
+  h2 AccordionPanel
+  p AccordionPanel is a container component with vertically stacked panels.  
+  h:form#form
+    - imgUrl = randomImg;
+    p:growl#msgs(showDetail="true")/
+
+    mixin insideAccord
+      each val in ['I', 'II', 'III']
+          p:tab(title="Godfather Part "+val)
+            h:panelGrid(columns=2, cellpadding=10)
+              img(src=imgUrl())
+              h:outputText(value=lorem(5))/
+      hr/
+      
+    mixin accord(title, attrs)
+      h3(style={"margin-top":0})=title
+      p:accordionPanel&attributes(attrs)
+        +insideAccord
+    
+    +accord('Basic', {})
+    +accord('Multiple selection', {multiple:"true"})
+    +accord('On-demand loading', {dynamic:"true", cache:"true"})
+
+    - tabbedView = proxyMaker("tabbedView");
+    h3 Change Event
+    p:accordionPanel
+      p:ajax(event='tabChange', listener=tabbedView.onTabChange, update=':form:msgs')/
+      p:ajax(event='tabClose', listener=tabbedView.onTabClose, update=':form:msgs')/
+      +insideAccord
+     
+    h3 DataModel
+    p:accordionPanel(value=tabbedView.cars, var='car')
+      - car = proxyMaker("car");
+      p:tab(title=`Car ${car.id}`)
+        h:panelGrid(columns=2, cellpadding=5)
+          f:facet(name='header')
+            h:graphicImage(value=`https://source.unsplash.com/600x300?${car.brand},car` alt=car.brand)/
+          mixin view(title, field) 
+            h:outputText(value=title, style={'font-weight':'bold'})/
+            h:outputText(value=car[field])/
+
+          +view('Brand: ', 'brand')
+          +view('Year: ', 'year')
+          +view('Color: ', 'color')

@@ -39,10 +39,10 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class Main extends Application { 
+public class TemplateMaker extends Application { 
 
 	public static void main(String[] args) throws IOException {
-		launch(Main.class, args);
+		launch(TemplateMaker.class, args);
 	}
 
 	private Set<String> existing;
@@ -179,17 +179,14 @@ public class Main extends Application {
 		tagsMap.clear();
 
 		tags.forEach((name, list) -> {
-			if(name.indexOf(':') < 0 || contains(name))
-				return;
-
-			tagsMap.put(name, list.get(0));
+			if(!(name.indexOf(':') < 0 || contains(name)))
+				tagsMap.put(name, list.get(0));
 
 			list.stream()
 			.flatMap(e -> e.attributes().asList().stream())
 			.forEach(atr -> {
 				String s = atr.getKey();
-				if(contains(s) || attrsMap.containsKey(s))
-					return;
+				if(!(contains(s) || attrsMap.containsKey(s)))
 				attrsMap.put(s, atr);
 			});
 		});
