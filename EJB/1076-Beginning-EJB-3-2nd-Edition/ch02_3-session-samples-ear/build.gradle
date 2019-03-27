@@ -1,0 +1,21 @@
+plugins {
+    id 'ear'    
+}
+apply from: '../deployer.gradle'
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+  deploy project(':ch02_1-session-samples-ejb')
+  deploy project(path: ':ch02_2-session-samples-war', configuration:'archives')
+}
+
+ear {
+  deploymentDescriptor {
+     initializeInOrder = true
+     module('ch02_1-session-samples-ejb.jar', 'ejb')
+     webModule('ch02_2-session-samples-war.war', '/page')
+  }  
+}
