@@ -1,0 +1,20 @@
+plugins {
+    id 'java'
+    id 'war'
+}
+
+apply from: '../web.gradle'
+apply from: '../wsimport.gradle'
+
+contextroot = 'creditservice'
+welcomePage = ['CreditService?wsdl', 'CreditService?Tester']
+ext.wsdl_url = 'http://localhost:8080/creditservice/CreditService?wsdl'
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+  compileOnly 'javax.ejb:javax.ejb-api:3.2'
+  compileOnly 'javax.xml.ws:jaxws-api:2.2.12'  
+}

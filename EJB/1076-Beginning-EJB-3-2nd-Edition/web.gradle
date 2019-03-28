@@ -1,0 +1,68 @@
+apply from: '../configure.gradle'
+
+ext.contextroot = 'page'
+ext.welcomePage = null
+ext.baseuri = null;
+
+task deploy(dependsOn:'war') {
+  doLast {
+     if(!contextroot)
+	   throw new GradleException('contextroot not specified')
+     if(!baseuri)
+	   baseuri = "http://localhost:8080/$contextroot/"
+  
+    exec {
+	  workingDir = war.destinationDir
+      commandLine ASADMIN_EXE,  'deploy', '--force=true', '--contextroot='+contextroot, war.archiveName
+ 	}
+    println('\nrunning at: '+baseuri)
+	handleWelcomePages();
+  }
+}
+
+def handleUrl(s, open, printurl) {
+  def url =  "$baseuri$s"
+  if(printurl)
+    println "    $url"
+  if(open)
+    java.awt.Desktop.desktop.browse url.toURI()
+}
+
+def handleWelcomePages() {
+  if(baseuri && (welcomePage || welcomePage == '')) {
+       println 'url(s):'
+	   if(welcomePage instanceof Collection)
+	     welcomePage.each{handleUrl(it, false, true)}
+	   else 
+	     handleUrl(welcomePage, false, true)
+	}
+} 
+
+
+task run(dependsOn:'waitUndeployRequest') {
+  doLast {
+  }
+}
+
+run.finalizedBy 'undeploy'
+
+task undeploy(type:Exec) {
+  workingDir = war.destinationDir
+  commandLine ASADMIN_EXE,  'undeploy', (war.archiveName - '.war')
+}
+
+task waitUndeployRequest(dependsOn:'deploy') {
+  doLast {
+    println 'press any key to undeploy...'
+	System.in.read()
+	/*
+    Scanner sc = new Scanner(System.in)
+    while(true) {
+      def line = sc.nextLine()
+	  if(line == 'undeploy')
+	    break;
+	 println 'invalid input: '+line
+    }
+	*/
+  }
+}

@@ -1,0 +1,21 @@
+plugins {
+    id 'ear'    
+}
+apply from: '../deployer.gradle'
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+  deploy project(':ch03_1-persistance-samples-ejb-jpa')
+  deploy project(path: ':ch03_2-persistance-samples-war', configuration:'archives')
+}
+
+ear {
+  deploymentDescriptor {
+     initializeInOrder = true
+     module('ch03_1-persistance-samples-ejb-jpa.jar', 'ejb')
+     webModule('ch03_2-persistance-samples-war.war', '/page')
+  }  
+}

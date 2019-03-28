@@ -1,0 +1,13 @@
+plugins {
+    id 'java-library'
+}
+
+repositories {
+    jcenter()
+}
+
+dependencies { 
+  compileOnly 'javax:javaee-api:7.0'
+  implementation 'com.thedeanda:lorem:2.1'
+  implementation 'org.json:json:20180813'
+}

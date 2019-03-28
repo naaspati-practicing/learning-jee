@@ -1,0 +1,19 @@
+plugins {
+    id 'java-library'
+}
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+ /* 
+  compileOnly 'org.eclipse.persistence:javax.persistence:2.1.0'
+  compileOnly 'javax.ejb:javax.ejb-api:3.2'
+  compileOnly 'javax.interceptor:javax.interceptor-api:1.2'
+  compileOnly 'javax.jms:javax.jms-api:2.0'
+  compileOnly 'javax.inject:javax.inject:1'
+  */
+  compileOnly 'javax:javaee-api:7.0'
+  implementation files('../ch07_0-mixed-web-services/build/ch07_0-mixed-web-services.jar')
+}

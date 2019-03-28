@@ -1,0 +1,13 @@
+plugins {
+    id 'java-library'
+}
+
+repositories {
+    jcenter()
+}
+
+dependencies { 
+  compileOnly 'org.eclipse.persistence:javax.persistence:2.1.0'
+  compileOnly 'javax.ejb:javax.ejb-api:3.2'
+  compileOnly 'javax.interceptor:javax.interceptor-api:1.2'
+}

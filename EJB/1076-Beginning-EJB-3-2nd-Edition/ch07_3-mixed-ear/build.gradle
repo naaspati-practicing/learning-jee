@@ -1,0 +1,21 @@
+plugins {
+    id 'ear'    
+}
+apply from: '../deployer.gradle'
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+  deploy project(':ch07_1-mixed-ejb-jpa-jms')
+  deploy project(path: ':ch07_2-mixed-war', configuration:'archives')
+}
+
+ear {
+  deploymentDescriptor {
+     initializeInOrder = true
+     module('ch07_1-mixed-ejb-jpa-jms.jar', 'ejb')
+     webModule('ch07_2-mixed-war.war', '/page')
+  }  
+}

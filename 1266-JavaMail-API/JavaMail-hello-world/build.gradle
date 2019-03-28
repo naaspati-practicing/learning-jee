@@ -1,0 +1,20 @@
+plugins {
+    id 'java-library'
+}
+
+apply from: '../appclient.gradle'
+
+ext.mainClassName = 'sam.learn.java.mail.Main'
+
+dependencies {
+  compile project(':client')
+}
+
+jar {
+  manifest {
+    attributes(
+      'Class-Path': configurations.compile.collect { it.getName() }.join(' '),
+      'Main-Class': mainClassName
+    )
+  }
+}
