@@ -1,0 +1,17 @@
+plugins {
+    id 'java-library'
+}
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+   testImplementation 'org.jboss.arquillian:arquillian-bom:1.4.0.Final'
+   testImplementation 'org.arquillian.container:arquillian-container-chameleon:1.0.0.Alpha3'
+  
+   testImplementation 'org.jboss.arquillian.junit:arquillian-junit-container:1.4.0.Final'
+   testImplementation 'junit:junit:4.12'
+  
+   api 'javax.ejb:javax.ejb-api:3.2'
+}
