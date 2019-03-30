@@ -7,11 +7,7 @@ repositories {
 }
 
 /*
-without this dependencies will need to be defined as
-
-compileOnly 'javax.ejb:javax.ejb-api:3.2'
-testCompileOnly 'javax.ejb:javax.ejb-api:3.2'
-
+  to avoid repeating  compileOnly deps with testCompileOnly
 */
 configurations {
   testCompileOnly.extendsFrom compileOnly
@@ -24,6 +20,8 @@ dependencies {
    testImplementation 'org.jboss.arquillian.junit:arquillian-junit-container:1.4.0.Final'
    testImplementation 'junit:junit:4.12'
   
+   compileOnly 'org.eclipse.persistence:javax.persistence:2.1.0'
    compileOnly 'javax.ejb:javax.ejb-api:3.2'
-   testCompileOnly 'javax.ejb:javax.ejb-api:3.2'
+   compileOnly 'javax.enterprise:cdi-api:1.1'
+
 }

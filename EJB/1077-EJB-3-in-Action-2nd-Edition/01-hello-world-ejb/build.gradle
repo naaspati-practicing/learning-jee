@@ -6,13 +6,6 @@ repositories {
     jcenter()
 }
 
-/*
-without this dependencies will need to be defined as
-
-compileOnly 'javax.ejb:javax.ejb-api:3.2'
-testCompileOnly 'javax.ejb:javax.ejb-api:3.2'
-
-*/
 configurations {
   testCompileOnly.extendsFrom compileOnly
 }
@@ -25,5 +18,4 @@ dependencies {
    testImplementation 'junit:junit:4.12'
   
    compileOnly 'javax.ejb:javax.ejb-api:3.2'
-   testCompileOnly 'javax.ejb:javax.ejb-api:3.2'
 }
