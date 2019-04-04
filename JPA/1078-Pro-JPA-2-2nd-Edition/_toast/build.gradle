@@ -1,0 +1,18 @@
+apply plugin: 'war'
+
+repositories {
+    jcenter()
+}
+
+war {
+  archiveName = 'page.war'
+  destinationDir = file(System.env.JETTY_BASE+'/webapps/')
+  exclude('**/*.pug')
+}
+
+dependencies {
+  implementation 'org.eclipse.persistence:org.eclipse.persistence.jpa:2.6.1'
+  compileOnly 'javax.servlet:javax.servlet-api:3.1.0'
+  compileOnly 'org.slf4j:slf4j-simple:1.7.25'
+  implementation 'com.j2html:j2html:1.2.2'
+}

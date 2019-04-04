@@ -1,0 +1,13 @@
+plugins {
+    id 'war'
+}
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+  compileOnly 'javax.ejb:javax.ejb-api:3.2'
+  compileOnly 'org.eclipse.persistence:javax.persistence:2.1.0'
+  compileOnly 'org.slf4j:slf4j-api:1.8.0-beta1'
+}

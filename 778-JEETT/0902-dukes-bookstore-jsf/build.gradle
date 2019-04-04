@@ -1,0 +1,24 @@
+plugins {
+    id 'war'
+}
+
+repositories {
+    jcenter()
+}
+/*
+C:\Users\Sameer\Documents\MEGAsync\_unzipped\JAVA\JAVA_EE\case-studies\dukes-bookstore
+ //TODO
+ .xhtml remains to code.. (webapp)
+ 
+ 
+*/
+
+
+dependencies {
+  compileOnly project(':0901-dukes-bookstore-ejb-jpa')
+  compileOnly 'org.glassfish:javax.faces:2.2.0'
+  compileOnly 'javax.el:javax.el-api:3.0.0'
+  compileOnly 'javax.enterprise:cdi-api:1.1'
+  compileOnly 'org.slf4j:slf4j-api:1.8.0-beta1'
+  compileOnly 'javax.ejb:javax.ejb-api:3.2'
+}

@@ -1,0 +1,11 @@
+Configure#wac(class='org.eclipse.jetty.webapp.WebAppContext')
+  New#PostgresDS(class='org.eclipse.jetty.plus.jndi.Resource')
+    Arg
+    Arg jdbc/PostgresDS
+    Arg
+      New(class='org.postgresql.ds.PGSimpleDataSource')
+        Set(name='User') postgres
+        Set(name='Password') postgres
+        Set(name='DatabaseName') postgres
+        Set(name='ServerName') localhost
+        Set(name='PortNumber') 5432

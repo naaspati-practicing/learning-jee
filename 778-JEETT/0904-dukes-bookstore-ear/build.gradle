@@ -1,0 +1,22 @@
+plugins {
+    id 'ear'    
+}
+apply from: '../ear_deployer.gradle'
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+  deploy project(':0901-dukes-bookstore-ejb-jpa')
+  deploy project(path: ':0902-dukes-bookstore-jsf', configuration:'archives')
+  earlib 'org.slf4j:slf4j-jdk14:1.8.0-beta1'
+}
+
+ear {
+  deploymentDescriptor {
+     initializeInOrder = true
+     module('0901-dukes-bookstore-ejb-jpa.jar', 'ejb')
+     webModule('0902-dukes-bookstore-jsf.war', '/page')
+  }  
+}

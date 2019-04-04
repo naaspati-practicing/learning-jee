@@ -1,0 +1,102 @@
+<?xml version='1.0' encoding='UTF-8'?>
+faces-config(version="2.2", xmlns="http://xmlns.jcp.org/xml/ns/javaee",
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance",
+              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee;http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd")
+  // application wide fetures
+  application
+    resoure-bundle
+      base-name jeetutorial.dukesbookstore.view.messages.Messages
+      var bundle
+    locale-config
+      //- default is a reserved word so this is a work arround
+      <default-locale>en</default-locale>
+      supported-locale de
+      supported-locale es
+      supported-locale fr
+  mixin mprop(name, value, descrip)
+    managed-property 
+      property-name=name
+      value=value
+      description=descrip
+
+  - beanCls = 'jeetutorial.dukesbookstore.model.ImageArea'
+
+  // managed beans
+  // Initialize Image Map Hotspot Data
+
+  mixin managed-bean-mix(beanName, description, props)
+    managed-bean(eager='true')
+      description=description
+      managed-bean-name=beanName
+      managed-bean-class=beanCls
+      managed-bean-scope application
+      each val in props
+          +mprop(...val)
+
+  
+  +managed-bean-mix('Book201', `Causes the default VariableResolver implementation to instantiate the 
+            managed bean Book201 of the class components.model.ImageArea in application 
+            scope if the bean does not already exist in any scope, and initialize the
+            shape, alt, and coords properties with the values specified by the
+            managed-property elements.`, 
+            [
+                ['shape', 'rect', 'Initializes the shape property of the managed bean Book201 with the value rect.'],
+                ['alt', 'Duke', 'Initializes the alt property of the managed bean Book201 with the value Coding.'],
+                ['coords', '67,23,212,268', 'Initializes the coords property of the managed bean Book201 with the value  specified by the value element. ']
+            ])
+  
+  +managed-bean-mix('Book202', `Causes the default VariableResolver implementation to instantiate the 
+            managed bean Book202 of the class components.model.ImageArea in application 
+            scope if the bean does not already exist in any scope, and initialize the
+            shape, alt, and coords properties with the values specified by the
+            managed-property elements.`, 
+            [
+                ['shape', 'rect', 'Initializes the shape property of the managed bean Book202 with the value rect.'],
+                ['alt', 'Jeeves', 'Initializes the alt property of the managed bean Book202 with the value Jeeves.'],
+                ['coords', '337,23,480,268', 'Initializes the coords property of the managed bean Book202 with the value  specified by the value element. ']
+            ])
+  
+  +managed-bean-mix('Book203', `Causes the default VariableResolver implementation to instantiate the 
+            managed bean Book203 of the class components.model.ImageArea in application 
+            scope if the bean does not already exist in any scope, and initialize the
+            shape, alt, and coords properties with the values specified by the
+            managed-property elements.`, 
+            [
+                ['shape', 'rect', 'Initializes the shape property of the managed bean Book203 with the value rect.'],
+                ['alt', 'Masterson', 'Initializes the alt property of the managed bean Book203 with the value Masterson.'],
+                ['coords', '605,23,747,268', 'Initializes the coords property of the managed bean Book203 with the value  specified by the value element. ']
+            ])
+  
+  +managed-bean-mix('Book205', `Causes the default VariableResolver implementation to instantiate the 
+            managed bean Book205 of the class components.model.ImageArea in application 
+            scope if the bean does not already exist in any scope, and initialize the
+            shape, alt, and coords properties with the values specified by the
+            managed-property elements.`, 
+            [
+                ['shape', 'rect', 'Initializes the shape property of the managed bean Book205 with the value rect.'],
+                ['alt', 'Novation', 'Initializes the alt property of the managed bean Book205 with the value Novation.'],
+                ['coords', '69,323,210,569', 'Initializes the coords property of the managed bean Book205 with the value  specified by the value element. ']
+            ])
+  
+  +managed-bean-mix('Book206', `Causes the default VariableResolver implementation to instantiate the 
+            managed bean Book206 of the class components.model.ImageArea in application 
+            scope if the bean does not already exist in any scope, and initialize the
+            shape, alt, and coords properties with the values specified by the
+            managed-property elements.`, 
+            [
+                ['shape', 'rect', 'Initializes the shape property of the managed bean Book205 with the value rect.'],
+                ['alt', 'Thrilled', 'Initializes the alt property of the managed bean Book205 with the value Thrilled.'],
+                ['coords', '337,323,479,569', 'Initializes the coords property of the managed bean Book205 with the value  specified by the value element. ']
+            ])
+  
+  +managed-bean-mix('Book207', `Causes the default VariableResolver implementation to instantiate the 
+            managed bean Book207 of the class components.model.ImageArea in application 
+            scope if the bean does not already exist in any scope, and initialize the
+            shape, alt, and coords properties with the values specified by the
+            managed-property elements.`, 
+            [
+                ['shape', 'rect', 'Initializes the shape property of the managed bean Book205 with the value rect.'],
+                ['alt', 'Coding', 'Initializes the alt property of the managed bean Book205 with the value Coding.'],
+                ['coords', '604,323,748,569', 'Initializes the coords property of the managed bean Book205 with the value  specified by the value element. ']
+            ]) 
+
