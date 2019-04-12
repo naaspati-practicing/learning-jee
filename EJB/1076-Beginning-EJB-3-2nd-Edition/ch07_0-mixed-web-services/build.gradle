@@ -3,7 +3,7 @@ plugins {
     id 'war'
 }
 
-apply from: '../web.gradle'
+apply from: '../war_ear_deployer.gradle'
 apply from: '../wsimport.gradle'
 
 contextroot = 'creditservice'

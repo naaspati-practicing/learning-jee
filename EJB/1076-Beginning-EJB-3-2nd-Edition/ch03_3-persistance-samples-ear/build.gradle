@@ -1,7 +1,7 @@
 plugins {
     id 'ear'    
 }
-apply from: '../deployer.gradle'
+apply from: '../ear_deployer.gradle'
 
 repositories {
     jcenter()

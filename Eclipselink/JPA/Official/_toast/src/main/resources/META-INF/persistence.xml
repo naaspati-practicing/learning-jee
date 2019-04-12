@@ -6,7 +6,6 @@
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     
     <properties>
-      <property name="eclipselink.profiler" value="PerformanceProfiler.logProfiler"/>
       <property name="eclipselink.logging.level" value="FINE"/>
       <property name="eclipselink.logging.level.sql" value="FINE"/>
       <property name="eclipselink.logging.timestamp" value="false"/>
@@ -14,26 +13,6 @@
       <property name="eclipselink.logging.thread" value="false"/>
       <property name="eclipselink.target-database" value="PostgreSQL"/>
       <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/> 
-    </properties>
-  </persistence-unit>
-  
-  <!-- for testing perpose -->
-  <persistence-unit name="H2PU" transaction-type="RESOURCE_LOCAL">
-    <class>sam.hello.HelloMessage</class>
-    <exclude-unlisted-classes>true</exclude-unlisted-classes>
-    
-    <properties>
-      <property name="eclipselink.target-server" value="None"/>
-      <property name="eclipselink.logging.level" value="FINE"/>
-      <property name="eclipselink.logging.level.sql" value="FINE"/>
-      <property name="eclipselink.logging.timestamp" value="false"/>
-      <property name="eclipselink.logging.session" value="false"/>
-      <property name="eclipselink.logging.thread" value="false"/>
-      <property name="javax.persistence.jdbc.user" value="sa" />
-      <property name="javax.persistence.jdbc.password" value="sa" />
-	  <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
-	  <property name="javax.persistence.jdbc.url" value="jdbc:h2:mem:test;TRACE_LEVEL_SYSTEM_OUT=3"/>
-      <property name="javax.persistence.schema-generation.database.action" value="create"/> 
     </properties>
   </persistence-unit>
 </persistence>

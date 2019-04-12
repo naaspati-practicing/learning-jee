@@ -10,7 +10,7 @@ ext.JUNIT_VERSION = '5.3.2'
 ext.TRUTH_VERSION = '0.42'
 
 dependencies {
-   implementation 'org.eclipse.persistence:eclipselink:2.6.+'
+   implementation 'org.eclipse.persistence:eclipselink:2.6.6'
    testImplementation 'com.h2database:h2:1.4.199'
  
    testImplementation 'com.thedeanda:lorem:2.1'
@@ -26,4 +26,5 @@ dependencies {
 test {
   useJUnitPlatform()
   systemProperty 'java.util.logging.config.file','test-logging.properties'
+  jvmArgs "\"-javaagent:${configurations.compileClasspath.filter({it.name == 'eclipselink-2.6.6.jar'})[0]}\""
 }

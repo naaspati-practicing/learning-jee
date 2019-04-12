@@ -1,0 +1,13 @@
+ext.GLASSFISH_HOME = System.env['GLASSFISH_HOME']
+if(!GLASSFISH_HOME)
+  throw new GradleException('System.env[\'GLASSFISH_HOME\'] not found')
+  
+ext.ASADMIN_EXE = GLASSFISH_HOME+'bin\\asadmin.bat'
+if(!file(ASADMIN_EXE).exists()) {
+  println('not found: '+ASADMIN_EXE)
+  ext.ASADMIN_EXE = GLASSFISH_HOME+'\\bin\\asadmin.bat'
+  if(!file(ASADMIN_EXE).exists()) {
+    println('not found: '+ASADMIN_EXE)
+	throw new GradleException('not found: '+ASADMIN_EXE)
+  } 
+}
